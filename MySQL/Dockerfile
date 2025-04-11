@@ -1,7 +1,7 @@
 FROM mysql:latest
 
 ENV MYSQL_ROOT_PASSWORD 12345
-ENV MYSQL_DATABASE db_sebastian
+ENV MYSQL_DATABASE db_autosync
 ENV MYSQL_USER user_full_1
 ENV MYSQL_PASSWORD userPassB1
 
