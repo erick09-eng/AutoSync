@@ -1,0 +1,58 @@
+
+# Entorno virtual
+.env/
+.venv/
+
+# Archivos de configuración de entorno
+.env
+
+# Archivos de Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Bases de datos locales / cachés
+*.sqlite3
+*.db
+*.log
+*.pid
+
+# Archivos de dependencia y metadata
+*.egg-info/
+dist/
+build/
+
+# Configuraciones del editor/IDE
+### VS Code ###
+.vscode/
+.idea/
+*.swp
+### Mac OS ###
+.DS_Store
+
+
+# pytest / cobertura
+htmlcov/
+.tox/
+.coverage
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Archivos comprimidos
+*.tar
+*.tar.gz
+*.rar
+*.nar
+
+# Archivos específicos de FastAPI / Uvicorn
+*.pid
+
+
+
+
+
+
+

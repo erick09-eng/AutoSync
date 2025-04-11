@@ -1,0 +1,46 @@
+services:
+  db:
+    build:
+      context: ./MySQL
+      dockerfile: Dockerfile
+    container_name: database_1
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./MySQL/data:/var/lib/mysql
+    networks:
+      - new_net
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "root", "-p12345" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  adminer:
+    image: adminer
+    container_name: adminer_database_1
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - new_net
+    depends_on:
+      db:
+        condition: service_healthy
+  fastapi:
+    build:
+      context: ./FASTAPI
+      dockerfile: Dockerfile
+    container_name: fastapi_wms_sebas
+    restart: always
+    ports:
+      - 8000:80
+    networks:
+      - new_net
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  new_net:
+    driver: bridge
