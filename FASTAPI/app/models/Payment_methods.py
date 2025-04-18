@@ -1,4 +1,4 @@
-# models/payment_methods.py
+# models/Payment_methods.py
 from sqlalchemy import Column, Integer, String, Boolean
 from db.database import Base
 

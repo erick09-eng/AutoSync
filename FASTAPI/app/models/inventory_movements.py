@@ -1,9 +1,9 @@
-# models/item.py
+# models/Inventory_movements.py
 from sqlalchemy import Column, Integer, String, Timestamp
 from db.database import Base
 
 
-class Item(Base):
+class Inventory_movements(Base):
     __tablename__ = "inventory_movements"
 
     movement_id = Column(Integer, primary_key=True, index=True)

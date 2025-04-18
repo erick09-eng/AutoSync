@@ -1,6 +1,6 @@
 # repositories/item_repository.py
 from sqlalchemy.orm import Session
-from models.item import Item
+from FASTAPI.app.models.sale_details import Item
 from schemas.item import ItemCreate
 
 

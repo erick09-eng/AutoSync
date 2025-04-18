@@ -1,9 +1,9 @@
-# models/item.py
+# models/Promotions.py
 from sqlalchemy import Column, Integer, String, Double, Datetime, TimeStamp, Boolean
 from db.database import Base
 
 
-class Item(Base):
+class Promotions(Base):
     __tablename__ = "promotions"
 
     promotion_id = Column(Integer, primary_key=True, index=True)

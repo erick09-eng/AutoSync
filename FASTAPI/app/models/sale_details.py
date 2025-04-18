@@ -1,9 +1,9 @@
-# models/item.py
-from sqlalchemy import Column, Integer, String, Boolean, Double
+# models/Sale_details.py
+from sqlalchemy import Column, Integer, Double
 from db.database import Base
 
 
-class Item(Base):
+class Sale_details(Base):
     __tablename__ = "sale_details"
 
     sale_detail_id = Column(Integer, primary_key=True, index=True)
