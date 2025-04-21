@@ -5,6 +5,7 @@ from app.api.v1 import payment_methods_router
 from app.api.v1 import sale_details_router
 from app.api.v1 import inventory_movements_router
 from app.api.v1 import promotions_router
+from app.api.v1 import product_promotions_router
 
 
 
@@ -15,3 +16,4 @@ app.include_router(payments_router.router, prefix="/api/v1/payments", tags=["pay
 app.include_router(payment_methods_router.router, prefix="/api/v1/promotions", tags=["promotions"])
 app.include_router(inventory_movements_router.router, prefix="/api/v1/inventory_movements", tags=["inventory_movements"])
 app.include_router(promotions_router.router, prefix="/api/v1/promotions", tags=["promotions"])
+app.include_router(product_promotions_router.router, prefix="/api/v1/product_promotions", tags=["product_promotions"])
