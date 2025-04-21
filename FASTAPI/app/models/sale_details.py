@@ -7,7 +7,7 @@ class Sale_details(Base):
     __tablename__ = "sale_details"
 
     sale_detail_id = Column(Integer, primary_key=True, index=True)
-    sale_id = Column(Integer, index=True) # Foreign key to sales table
+    sale_id = Column(Integer, index=True, models.ForeignKey(sale)) # Foreign key to sales table
     product_id = Column(Integer, index=True) # Foreign key to products table
     quantity = Column(Integer, index=True)
     unit_price = Column(Double, index=True)
