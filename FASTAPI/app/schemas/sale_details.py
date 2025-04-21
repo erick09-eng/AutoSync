@@ -1,4 +1,4 @@
-# schemas/item.py
+# schemas/sale_details.py
 from pydantic import BaseModel
 
 #SaleDetailsBase, son los campos que se envial al cliente a crear por ejemplo un post, no mandamos el pk de la tabla 
