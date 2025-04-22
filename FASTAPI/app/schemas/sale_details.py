@@ -1,5 +1,6 @@
 # schemas/sale_details.py
 from pydantic import BaseModel
+from typing import Optional
 
 #SaleDetailsBase, son los campos que se envial al cliente a crear por ejemplo un post, no mandamos el pk de la tabla 
 class SaleDetailBase(BaseModel):
@@ -9,7 +10,7 @@ class SaleDetailBase(BaseModel):
     quantity : int
     unit_price : float
     discount_percentage : float
-    subtotal : float
+    subtotal : Optional[float] = 0
 
 
 class SaleDetailCreate(SaleDetailBase):

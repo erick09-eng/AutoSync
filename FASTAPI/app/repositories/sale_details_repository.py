@@ -25,3 +25,4 @@ def get_all_sale_details(db: Session):
 
 
 
+
