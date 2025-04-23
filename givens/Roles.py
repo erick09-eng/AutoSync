@@ -1,30 +1,9 @@
-class Roles:
-    def __init__(self, role_id, role_name, role_description=None):
-        self.role_id = role_id
-        self.role_name = role_name
-        self.role_description = role_description
-        
-    @property
-    def role_id(self):
-        return self._role_id
+from sqlalchemy import Column, Integer, String, Text
+from db.database import Base
 
-    @role_id.setter
-    def role_id(self, _role_id):
-        self._role_id = _role_id
+class Roles(Base):
+    __tablename__ = "roles"
 
-    @property
-    def role_name(self):
-        return self._role_name
-
-    @role_name.setter
-    def role_name(self, _role_name):
-        self._role_name = _role_name
-
-    @property
-    def role_description(self):
-        return self._role_description
-
-    @role_description.setter
-    def role_description(self, _role_description):
-        self._role_description = _role_description
-        
+    role_id = Column(Integer, primary_key=True, index=True)
+    role_name = Column(String(100), nullable=False)
+    role_description = Column(Text, nullable=True)
