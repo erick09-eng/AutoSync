@@ -1,39 +1,10 @@
-class Category:
-    def __init__(self, category_id, name, description=None, parent_category_id=None):
-        self.category_id = category_id
-        self.name = name
-        self.description = description
-        self.parent_category_id = parent_category_id
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from db.database import Base
 
-    @property
-    def category_id(self):
-        return self._category_id
+class Category(Base):
+    __tablename__ = "categories"
 
-    @category_id.setter
-    def category_id(self, _category_id):
-        self._category_id = _category_id
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, _name):
-        self._name = _name
-
-    @property
-    def description(self):
-        return self._description
-
-    @description.setter
-    def description(self, _description):
-        self._description = _description
-
-    @property
-    def parent_category_id(self):
-        return self._parent_category_id
-
-    @parent_category_id.setter
-    def parent_category_id(self, _parent_category_id):
-        self._parent_category_id = _parent_category_id
-    
+    category_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    parent_category_id = Column(Integer, ForeignKey("categories.category_id"), nullable=True)
