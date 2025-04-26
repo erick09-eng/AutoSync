@@ -1,17 +1,18 @@
-from repositories.roles_repository import RolesRepository
-from schemas.roles_schema import RolesCreate
+from repositories.customers_repository import CustomersRepository
+from schemas.customers_schema import CustomersCreate
+from sqlalchemy.orm import Session
 
-def create_user(db: Session, user: UserCreate):
-    return RolesRepository.create(db, user)
+def create_customer(db: Session, customer: CustomersCreate):
+    return CustomersRepository.create(db, customer)
 
-def get_user(db: Session, user_id: int):
-    return RolesRepository.get_by_id(db, user_id) 
+def get_customer(db: Session, customer_id: int):
+    return CustomersRepository.get_by_id(db, customer_id)
 
-def get_all_users(db: Session):
-    return RolesRepository.get_all(db)
+def get_all_customers(db: Session):
+    return CustomersRepository.get_all(db)
 
-def update_user(db: Session, user_id: int, user: UserCreate):
-    return RolesRepository.update(db, user_id, user)
+def update_customer(db: Session, customer_id: int, customer: CustomersCreate):
+    return CustomersRepository.update(db, customer_id, customer)
 
-def delete_user(db: Session, user_id: int):
-    return RolesRepository.delete(db, user_id)
+def delete_customer(db: Session, customer_id: int):
+    return CustomersRepository.delete(db, customer_id)
