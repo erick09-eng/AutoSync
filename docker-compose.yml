@@ -6,7 +6,7 @@ services:
     container_name: database_1
     restart: always
     ports:
-      - 3306:3306
+      - 3366:3366
     volumes:
       - ./MySQL/data:/var/lib/mysql
     networks:
@@ -21,7 +21,7 @@ services:
     container_name: adminer_database_1
     restart: always
     ports:
-      - 8080:8080
+      - 8808:8808
     networks:
       - new_net
     depends_on:
