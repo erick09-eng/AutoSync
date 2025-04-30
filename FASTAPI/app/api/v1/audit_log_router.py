@@ -1,7 +1,7 @@
 #api/v1/audit_log_router.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from db.database import get_db
+from db.session import get_db
 from services.audit_log_service import (
     create_audit_log_service,
     get_audit_log_service,

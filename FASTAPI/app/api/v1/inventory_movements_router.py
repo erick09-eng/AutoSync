@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from db.database import get_db
+from db.session import get_db
 from services.inventory_movements_service import create_movement_service, get_movement_service, get_all_movements_service
 from schemas.inventory_movements import InventoryMovementCreate, InventoryMovementResponse
 from typing import List
