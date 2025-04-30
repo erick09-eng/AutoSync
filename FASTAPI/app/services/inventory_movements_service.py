@@ -12,3 +12,5 @@ def get_movement_service(db: Session, movement_id: int):
 
 def get_all_movements_service(db: Session):
     return get_all_movements(db)
+
+
