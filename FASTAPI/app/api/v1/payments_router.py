@@ -1,7 +1,7 @@
 #api/v1/payments_router.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from db.database import get_db
+from db.session import get_db
 from services.payments_service import (
     create_new_payment,
     get_payment_by_id,

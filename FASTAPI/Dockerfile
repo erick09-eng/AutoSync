@@ -1,8 +1,8 @@
 FROM python:3.9
 
 COPY ./app /app
-COPY ./startup.sh /app
 COPY ./requirements.txt /app
+COPY ./startup.sh /app
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ RUN pip3 install -r requirements.txt
 
 RUN chmod +x startup.sh
 
-CMD ["./startup.sh"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload", "--port", "80"]
