@@ -11,11 +11,7 @@ from services.payments_service import (
 from schemas.payments import PaymentCreate, PaymentResponse
 from typing import List
 
-router = APIRouter(
-    prefix="/payments",
-    tags=["Payments"]
-)
-
+router = APIRouter()
 @router.post("/", response_model=PaymentResponse)
 def create_payment(payment: PaymentCreate, db: Session = Depends(get_db)):
     """
