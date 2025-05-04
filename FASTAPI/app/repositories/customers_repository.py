@@ -1,6 +1,7 @@
-from models.user import User
-from schemas.user import UserCreate, UserResponse
-from datetime import datetime
+from sqlalchemy.orm import Session
+
+from models.Users import User
+from schemas.UserSchema import UserCreate, UserResponse
 
 def create_user(db: Session, user: UserCreate):
     db_user = User(**user.dict())
@@ -28,4 +29,4 @@ def delete_user(db: Session, user_id: int):
         db.delete(db_user)
         db.commit()
         return True
-    return Fals
+    return False

@@ -1,5 +1,7 @@
-from models.products import Products
-from schemas.products import ProductsCreate, ProductsResponse
+from sqlalchemy.orm import Session
+
+from models.Product import Product as Products
+from schemas.ProductSchema import ProductCreate as ProductsCreate, ProductResponse
 from datetime import datetime
 
 def create_product(db: Session, product: ProductsCreate):

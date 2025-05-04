@@ -7,11 +7,9 @@ from services.audit_log_service import (
     get_audit_log_service,
     get_all_audit_logs_service,
 )
+from schemas.audit_log import AuditLogCreate, AuditLogResponse
 
-router = APIRouter(
-    prefix="/audit_logs",
-    tags=["Audit Logs"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=AuditLogResponse)
 def create_audit_log(audit_log: AuditLogCreate, db: Session = Depends(get_db)):
@@ -27,5 +25,6 @@ def read_audit_log(audit_log_id: int, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[AuditLogResponse])
 def list_audit_logs(db: Session = Depends(get_db)):
     return get_all_audit_logs_service(db)
+
 # Add any additional endpoints or logic as needed
     

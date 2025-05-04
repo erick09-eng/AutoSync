@@ -1,5 +1,5 @@
-from repositories.roles_repository import RolesRepository
-from schemas.roles import RolesCreate, RolesResponse
+from repositories import products_repository
+from schemas.ProductSchema import ProductCreate as ProductsCreate
 from sqlalchemy.orm import Session
 
 def create_product(db: Session, product: ProductsCreate):

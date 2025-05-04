@@ -1,5 +1,5 @@
 # models/Promotions.py
-from sqlalchemy import Column, Integer, String, Double, Datetime, TimeStamp, Boolean
+from sqlalchemy import Column, Integer, String, Double, Boolean, DateTime
 from db.database import Base
 
 
@@ -11,9 +11,9 @@ class Promotions(Base):
     description = Column(String)
     discount_type = Column(String)  # percentage
     discount_value = Column(Double)
-    start_date = Column(Datetime)  # YYYY-MM-DD
-    end_date = Column(Datetime)  # YYYY-MM-DD
+    start_date = Column(DateTime)  # YYYY-MM-DD
+    end_date = Column(DateTime)  # YYYY-MM-DD
     is_active = Column(Boolean)  # 1 for active, 0 for inactive
-    created_at = Column(TimeStamp)  # YYYY-MM-DD
+    created_at = Column(DateTime)  # YYYY-MM-DD
     
 

@@ -1,5 +1,5 @@
 from repositories import user_repository
-from schemas.User import UserCreate, UserResponse
+from schemas.UserSchema import UserCreate, UserResponse
 from sqlalchemy.orm import Session
 
 def create_user(db: Session, user: UserCreate):

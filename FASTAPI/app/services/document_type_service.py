@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from repositories.document_type_repository import DocumentTypeRepository
-from schemas.document_type_schema import DocumentTypeCreate, DocumentTypeUpdate
+from repositories import document_type_repository as DocumentTypeRepository
+from schemas.DocumentTypeSchema import DocumentTypeCreate, DocumentTypeUpdate
 
 def create_document_type(db: Session, document_type: DocumentTypeCreate):
     return DocumentTypeRepository.create_document_type(db, document_type)

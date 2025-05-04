@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from schemas.sale_details import SaleDetailCreate, SaleDetailResponse
-from FASTAPI.app.services.sale_details_service import create_sale_detail_service, get_sale_detail_service
+from services.sale_details_service import create_sale_detail_service, get_sale_detail_service
 from db.session import get_db
 
 router = APIRouter()

@@ -7,7 +7,7 @@ class PaymentBase(BaseModel):
     payment_method_id : int
     amount : float
     transaction_code : str
-    payment_date = datetime
+    payment_date : datetime
     status : str 
     
 class PaymentCreate(PaymentBase):
@@ -17,5 +17,5 @@ class PaymentResponse(PaymentBase):
     payment_id : int
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 

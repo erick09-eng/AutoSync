@@ -1,14 +1,14 @@
 # services/payments_service.py
 from sqlalchemy.orm import Session
-from app.repositories.payments_repository import (
+from repositories.payments_repository import (
     create_payment,
     get_payment,
     get_all_payments,
     update_payment,
     delete_payment,
 )
-from app.schemas.payments import PaymentCreate, PaymentResponse
-from app.models.payments import Payments
+from schemas.payments import PaymentCreate, PaymentResponse
+from models.payments import Payments
 from fastapi import HTTPException
 from datetime import datetime
 

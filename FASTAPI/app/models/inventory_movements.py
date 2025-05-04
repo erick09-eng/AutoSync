@@ -1,5 +1,7 @@
 # models/Inventory_movements.py
-from sqlalchemy import Column, Integer, String, Timestamp
+from sqlalchemy import Column, Integer, String, DateTime
+
+
 from db.database import Base
 
 
@@ -13,5 +15,5 @@ class Inventory_movements(Base):
     quantity = Column(Integer)
     reference_id = Column(Integer, index=True)
     notes = Column(String)  # Additional notes about the movement
-    created_at = Column(Timestamp)  # Timestamp of when the movement was created
+    created_at = Column(DateTime)  # Timestamp of when the movement was created
 

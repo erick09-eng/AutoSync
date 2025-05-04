@@ -1,6 +1,6 @@
-from repositories.category_repository import CategoriesRepository
+from repositories import categories_repository as CategoriesRepository
 from sqlalchemy.orm import Session
-from schemas.category import CategoryCreate, CategoryResponse
+from schemas.CategorySchema import CategoryCreate as CategoriesCreate, CategoryResponse as CategoryResponse
 
 def create_category(db: Session, category: CategoriesCreate):
     return CategoriesRepository.create_category(db, category)

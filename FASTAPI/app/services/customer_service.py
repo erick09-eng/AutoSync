@@ -1,5 +1,5 @@
-from repositories.customers_repository import CustomersRepository
-from schemas.customers_schema import CustomersCreate
+from repositories import customers_repository as CustomersRepository
+from schemas.CustomerSchema import CustomerCreate as CustomersCreate
 from sqlalchemy.orm import Session
 
 def create_customer(db: Session, customer: CustomersCreate):

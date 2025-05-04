@@ -3,17 +3,19 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from db.session import get_db
 
-from app.schemas.promotions import PromotionsCreate, PromotionsResponse
-from app.services.promotions_service import (
+from schemas.promotions import PromotionsCreate, PromotionsResponse
+from services.promotions_service import (
     create_new_promotion,
     get_promotion_by_id,
     get_all_promotions_list,
     update_existing_promotion,
     delete_existing_promotion
 )
-from app.models.promotions import Promotions
+from models.promotions import Promotions
 
 router = APIRouter()
+
+
 @router.post("/", response_model=PromotionsResponse, status_code=status.HTTP_201_CREATED)
 def create_promotion(promotion: PromotionsCreate, db: Session = Depends(get_db)):
     """

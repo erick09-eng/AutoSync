@@ -20,4 +20,4 @@ class PromotionsResponse(PromotionsBase):
     promotion_id : int
 
     class Config:
-        orm_mode = True  # This allows Pydantic to work with SQLAlchemy models
+        from_attributes = True  # This allows Pydantic to work with SQLAlchemy models
