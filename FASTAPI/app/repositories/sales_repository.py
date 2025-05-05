@@ -1,5 +1,7 @@
-from models.Sales import Sales
-from schemas.Sales import SalesCreate, SalesResponse
+from sqlalchemy.orm import Session
+
+from models.Sales import Sale as Sales
+from schemas.SaleSchema import SaleCreate as SalesCreate, SaleResponse as SalesResponse
 from datetime import datetime
 
 def create_sale(db: Session, sale: SalesCreate):
@@ -28,4 +30,4 @@ def delete_sale(db: Session, sale_id: int):
         db.delete(db_sale)
         db.commit()
         return True
-    return Fals
+    return False

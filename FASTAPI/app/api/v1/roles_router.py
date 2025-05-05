@@ -8,30 +8,27 @@ from services.roles_service import (
     update_role,
     delete_role,
 )
-from schemas.roles_schema import RolesCreate, RolesResponse
+from schemas.RolesSchema import RoleCreate, RoleResponse
 
-router = APIRouter(
-    prefix="/roles",
-    tags=["Roles"]
-)
+router = APIRouter()
 
-@router.post("/", response_model=RolesResponse)
-def create(role: RolesCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=RoleResponse)
+def create(role: RoleCreate, db: Session = Depends(get_db)):
     return create_role(db, role)
 
-@router.get("/{role_id}", response_model=RolesResponse)
+@router.get("/{role_id}", response_model=RoleResponse)
 def read(role_id: int, db: Session = Depends(get_db)):
     db_role = get_role(db, role_id)
     if db_role is None:
         raise HTTPException(status_code=404, detail="Role not found")
     return db_role
 
-@router.get("/", response_model=list[RolesResponse])
+@router.get("/", response_model=list[RoleResponse])
 def list_all(db: Session = Depends(get_db)):
     return get_all_roles(db)
 
-@router.put("/{role_id}", response_model=RolesResponse)
-def update(role_id: int, role: RolesCreate, db: Session = Depends(get_db)):
+@router.put("/{role_id}", response_model=RoleResponse)
+def update(role_id: int, role: RoleCreate, db: Session = Depends(get_db)):
     return update_role(db, role_id, role)
 
 @router.delete("/{role_id}")

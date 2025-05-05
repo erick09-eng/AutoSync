@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean
 from db.database import Base
 
 
-class Payment_methods(Base):
+class PaymentMethod(Base):
     __tablename__ = "payment_methods"
 
     payment_method_id = Column(Integer, primary_key=True, index=True)

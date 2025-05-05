@@ -8,12 +8,9 @@ from services.document_type_service import (
     update_document_type,
     delete_document_type,
 )
-from schemas.document_type_schema import DocumentTypeCreate, DocumentTypeUpdate, DocumentTypeResponse
+from schemas.DocumentTypeSchema import DocumentTypeCreate, DocumentTypeUpdate, DocumentTypeResponse
 
-router = APIRouter(
-    prefix="/document_types",
-    tags=["Document Types"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=DocumentTypeResponse)
 def create(document_type: DocumentTypeCreate, db: Session = Depends(get_db)):

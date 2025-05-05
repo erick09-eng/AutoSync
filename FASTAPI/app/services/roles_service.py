@@ -1,7 +1,8 @@
-from repositories import RolesRepository
-from schemas import RolesSchemas
+from sqlalchemy.orm import Session
+from repositories import roles_repository as RolesRepository
+from schemas.RolesSchema import RoleCreate, RoleResponse
 
-def create_role(db: Session, role: RolesCreate):
+def create_role(db: Session, role: RoleCreate):
     return RolesRepository.create_role(db, role)
 
 def get_role(db: Session, role_id: int):
@@ -10,7 +11,7 @@ def get_role(db: Session, role_id: int):
 def get_all_roles(db: Session):
     return RolesRepository.get_all_roles(db)
 
-def update_role(db: Session, role_id: int, role: RolesCreate):
+def update_role(db: Session, role_id: int, role: RoleCreate):
     return RolesRepository.update_role(db, role_id, role)
 
 def delete_role(db: Session, role_id: int):

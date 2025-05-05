@@ -14,7 +14,7 @@ class PaymentMethodResponse(PaymentMethodBase):
     payment_method_id : int
     
     class Config:
-        orm_mode = True
+        from_attributes = True
             
     
  

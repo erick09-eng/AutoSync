@@ -8,12 +8,9 @@ from services.user_service import (
     update_user,
     delete_user,
 )
-from schemas.user_schema import UserCreate, UserResponse
+from schemas.UserSchema import UserCreate, UserResponse
 
-router = APIRouter(
-    prefix="/users",
-    tags=["Users"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=UserResponse)
 def create(user: UserCreate, db: Session = Depends(get_db)):

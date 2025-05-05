@@ -1,6 +1,7 @@
 #schemas/audit_log.py
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 from datetime import datetime
+
 
 class AuditLogBase(BaseModel):
     user_id : int
@@ -21,7 +22,7 @@ class AuditLogResponse(AuditLogBase):
     log_id : int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
         json_encoders = {
             datetime: lambda v: v.isoformat() if isinstance(v, datetime) else v,
         }

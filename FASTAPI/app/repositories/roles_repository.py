@@ -1,7 +1,9 @@
-from models.Roles import Roles
-from schemas.Roles import RolesCreate, RolesResponse
+from sqlalchemy.orm import Session
 
-def create_role(db: Session, role: RolesCreate):
+from models.Roles import Roles
+from schemas.RolesSchema import RoleCreate, RoleResponse
+
+def create_role(db: Session, role: RoleCreate):
     db_role = Roles(**role.dict())
     db.add(db_role)
     db.commit()
@@ -12,7 +14,7 @@ def get_role(db: Session, role_id: int):
 def get_all_roles(db: Session):
     return db.query(Roles).all()
 
-def update_role(db: Session, role_id: int, role: RolesCreate):
+def update_role(db: Session, role_id: int, role: RoleCreate):
     db_role = get_role(db, role_id)
     if db_role:
         for key, value in role.dict().items():

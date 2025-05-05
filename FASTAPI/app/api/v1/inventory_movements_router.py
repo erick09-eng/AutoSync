@@ -5,10 +5,7 @@ from services.inventory_movements_service import create_movement_service, get_mo
 from schemas.inventory_movements import InventoryMovementCreate, InventoryMovementResponse
 from typing import List
 
-router = APIRouter(
-    prefix="/movements",
-    tags=["Movements"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=InventoryMovementResponse)
 def create_movement(movement: InventoryMovementCreate, db: Session = Depends(get_db)):

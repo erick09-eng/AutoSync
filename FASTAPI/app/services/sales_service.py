@@ -1,5 +1,7 @@
-from schemas.sales import SaleCreate, SaleUpdate
-from repositories.sales import SalesRepository
+from sqlalchemy.orm import Session
+
+from schemas.SaleSchema import SaleCreate as SalesCreate, SaleUpdate
+from repositories import sales_repository
 
 def create_sale(db: Session, sale: SalesCreate):
     return sales_repository.create_sale(db, sale)

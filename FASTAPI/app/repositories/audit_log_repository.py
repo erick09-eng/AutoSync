@@ -16,3 +16,7 @@ def get_audit_log(db: Session, audit_log_id: int):
 
 def get_all_audit_logs(db: Session):
     return db.query(AuditLog).all()
+
+def get_audit_logs_by_date(db: Session, date: datetime):
+    return db.query(AuditLog).filter(AuditLog.date == date).all()
+

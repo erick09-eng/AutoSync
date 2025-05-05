@@ -16,4 +16,4 @@ class DocumentTypeResponse(DocumentTypeBase):
     document_type_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

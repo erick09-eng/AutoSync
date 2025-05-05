@@ -8,6 +8,14 @@ from api.v1 import promotions_router
 from api.v1 import product_promotions_router
 from api.v1 import audit_log_router
 
+from api.v1 import roles_router
+from api.v1 import users_router
+from api.v1 import customers_router
+from api.v1 import categories_router
+from api.v1 import products_router
+from api.v1 import document_types_router
+from api.v1 import sales_router
+
 
 
 app = FastAPI()
@@ -19,3 +27,11 @@ app.include_router(inventory_movements_router.router, prefix="/api/v1/inventory_
 app.include_router(promotions_router.router, prefix="/api/v1/promotions", tags=["promotions"])
 app.include_router(product_promotions_router.router, prefix="/api/v1/product_promotions", tags=["product_promotions"])
 app.include_router(audit_log_router.router, prefix="/api/v1/audit_logs", tags=["audit_logs"])
+
+app.include_router(roles_router.router, prefix="/api/v1/roles", tags=["roles"])
+app.include_router(users_router.router, prefix="/api/v1/users", tags=["users"])
+app.include_router(customers_router.router, prefix="/api/v1/customers", tags=["customers"])
+app.include_router(categories_router.router, prefix="/api/v1/categories", tags=["categories"])
+app.include_router(products_router.router, prefix="/api/v1/products", tags=["products"])
+app.include_router(document_types_router.router, prefix="/api/v1/document_types", tags=["document_types"])
+app.include_router(sales_router.router, prefix="/api/v1/sales", tags=["sales"])

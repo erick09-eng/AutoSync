@@ -1,5 +1,7 @@
-from models.user import User
-from schemas.user import UserCreate, UserResponse
+from sqlalchemy.orm import Session
+
+from models.Users import User
+from schemas.UserSchema import UserCreate, UserResponse
 from datetime import datetime
 
 def create_user(db: Session, user: UserCreate):

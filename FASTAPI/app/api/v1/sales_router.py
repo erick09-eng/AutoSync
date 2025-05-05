@@ -7,12 +7,9 @@ from services.sales_service import (
     update_sale,
     delete_sale,
 )
-from schemas.sales_schema import SaleCreate, SaleUpdate, SaleResponse
+from schemas.SaleSchema import SaleCreate, SaleUpdate, SaleResponse
 
-router = APIRouter(
-    prefix="/sales",
-    tags=["Sales"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=SaleResponse)
 def create(sale: SaleCreate, db: Session = Depends(get_db)):
