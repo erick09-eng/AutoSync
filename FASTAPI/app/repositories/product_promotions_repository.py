@@ -1,6 +1,6 @@
 #repositories/product_promotions_repository.py
 from sqlalchemy.orm import Session
-from models.product_promotions import Product_Promotions
+from models import product_promotions as Product_Promotions
 from schemas.product_promotions import ProductPromotionsCreate
 
 def create_product_promotion(db: Session, product_promotion: ProductPromotionsCreate):

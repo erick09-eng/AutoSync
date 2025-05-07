@@ -1,7 +1,7 @@
 
 # repositories/sale_details_repository.py
 from sqlalchemy.orm import Session
-from models.sale_details import Sale_details
+from models import sale_details as Sale_details
 from schemas.sale_details import SaleDetailCreate
 
 

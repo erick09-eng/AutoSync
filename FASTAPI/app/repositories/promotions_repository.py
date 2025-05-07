@@ -1,6 +1,6 @@
 #repositories/promotions_repository.py
 from sqlalchemy.orm import Session
-from models.promotions import Promotions
+from models import promotions as Promotions
 from schemas.promotions import PromotionsCreate, PromotionsResponse
 from datetime import datetime
 

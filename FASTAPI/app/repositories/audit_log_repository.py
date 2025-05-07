@@ -1,6 +1,6 @@
 #repositories/audit_log_repository.py
 from sqlalchemy.orm import Session
-from models.audit_log import AuditLog
+from models import audit_log as AuditLog
 from schemas.audit_log import AuditLogCreate, AuditLogResponse
 from datetime import datetime
 

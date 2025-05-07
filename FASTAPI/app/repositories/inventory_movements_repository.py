@@ -1,6 +1,6 @@
 #repositories/inventory_movements_repository.py
 from sqlalchemy.orm import Session
-from models.inventory_movements import Inventory_movements
+from models import inventory_movements as Inventory_movements
 from schemas.inventory_movements import InventoryMovementCreate, InventoryMovementResponse
 
 def create_movement(db: Session, movement: InventoryMovementCreate):

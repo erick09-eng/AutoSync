@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.DocumentType import DocumentType
+from models import documentType as DocumentType
 from schemas.DocumentTypeSchema import DocumentTypeCreate, DocumentTypeResponse
 
 def create_document_type(db: Session, document_type: DocumentTypeCreate):

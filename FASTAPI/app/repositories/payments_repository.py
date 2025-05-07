@@ -1,6 +1,6 @@
 #repositories/payments_repository.py
 from sqlalchemy.orm import Session
-from models.payments import Payments
+from models import payments as Payments
 from schemas.payments import PaymentCreate, PaymentResponse
 
 def create_payment(db: Session, payment: PaymentCreate):

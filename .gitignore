@@ -53,3 +53,6 @@ MySQL/data/*
 
 # Sock no es manejable por git
 MySQL/data/mysql.sock
+
+
+Makefile
