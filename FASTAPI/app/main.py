@@ -18,7 +18,13 @@ from api.v1 import sales_router
 
 
 
-app = FastAPI()
+app = FastAPI(
+    root_path="/autosync"
+)
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 app.include_router(sale_details_router.router, prefix="/api/v1/sales_details", tags=["sales_details"])
 app.include_router(payments_router.router, prefix="/api/v1/payments", tags=["payments"])
