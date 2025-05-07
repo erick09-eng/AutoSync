@@ -3,43 +3,36 @@ services:
     build:
       context: ./MySQL
       dockerfile: Dockerfile
-    container_name: database_1
+    container_name: db
     restart: always
-    ports:
-      - 3366:3306
     volumes:
       - ./MySQL/data:/var/lib/mysql
     networks:
       - new_net
-    healthcheck:
-      test: [ "CMD", "mysql", "-u", "root", "-p12345" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-  adminer:
-    image: adminer
-    container_name: adminer_database_1
-    restart: always
+  nginx:
+    build: ./nginx
     ports:
-      - 8808:8080
+      - "8808:80"
+    depends_on:
+      - db
+      - fastapi
+      - adminer-balancer
     networks:
       - new_net
-    depends_on:
-      db:
-        condition: service_healthy
+  adminer-balancer:
+    image: adminer
+    container_name: adminer-balancer
+    restart: always
+    networks:
+      - new_net
   fastapi:
     build:
       context: ./FASTAPI
       dockerfile: Dockerfile
-    container_name: fastapi_wms_sebas
+    container_name: fastapi
     restart: always
-    ports:
-      - 8000:80
     networks:
       - new_net
-    depends_on:
-      db:
-        condition: service_healthy
 
 networks:
   new_net:
