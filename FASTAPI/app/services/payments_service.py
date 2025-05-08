@@ -8,7 +8,7 @@ from repositories.payments_repository import (
     delete_payment,
 )
 from schemas.payments import PaymentCreate, PaymentResponse
-from models.payments import Payments
+from models.Payments import Payments
 from fastapi import HTTPException
 from datetime import datetime
 
