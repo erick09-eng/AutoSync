@@ -1,6 +1,6 @@
 #repositories/payment_methods_repository.py
 from sqlalchemy.orm import Session
-from models.payment_methods import PaymentMethod
+from models.Payment_methods import PaymentMethod
 from schemas.payment_methods import PaymentMethodCreate
 
 def create_payment_method(db: Session, payment_method: PaymentMethodCreate):
