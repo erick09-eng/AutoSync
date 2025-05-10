@@ -1,4 +1,4 @@
-#services/payment_methods_service.py
+#app/services/payment_methods_service.py
 """
 This module contains services related to payment methods.
 It provides functions to create, retrieve, and fetch all payment methods from the database.

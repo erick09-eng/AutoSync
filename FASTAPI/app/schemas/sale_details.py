@@ -22,4 +22,4 @@ class SaleDetailResponse(SaleDetailBase):
     sale_detail_id : int
 
     class Config:
-        from_attributes : True
+        from_attributes = True
