@@ -11,7 +11,7 @@ class SaleBase(BaseModel):
     tax_amount: float
     discount_amount: Optional[float] = 0.0
     total_amount: Optional[float] = 0.0
-    payment_method: Optional[str] = "cash"
+    payment_method: int
     status: Optional[str] = "completed"
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
