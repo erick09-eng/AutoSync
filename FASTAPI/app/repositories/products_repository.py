@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.Product import Product as Products
+from models import product as Products
 from schemas.ProductSchema import ProductCreate as ProductsCreate, ProductResponse
 from datetime import datetime
 

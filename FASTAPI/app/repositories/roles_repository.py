@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.Roles import Roles
+from models import roles as Roles
 from schemas.RolesSchema import RoleCreate, RoleResponse
 
 def create_role(db: Session, role: RoleCreate):

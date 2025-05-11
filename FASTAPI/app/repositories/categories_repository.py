@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.Category import Category as Categories
+from models import category as Categories
 from schemas.CategorySchema import CategoryCreate as CategoriesCreate
 
 def create_category(db: Session, category: CategoriesCreate):

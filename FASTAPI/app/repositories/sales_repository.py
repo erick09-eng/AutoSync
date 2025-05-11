@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.Sales import Sale as Sales
+from models import sales as Sales
 from schemas.SaleSchema import SaleCreate as SalesCreate, SaleResponse as SalesResponse
 from datetime import datetime
 
