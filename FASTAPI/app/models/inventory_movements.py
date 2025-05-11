@@ -35,4 +35,3 @@ class Inventory_movements(Base):
     reference_id = Column(Integer, index=True)
     notes = Column(String(255))  # Additional notes about the movement
     created_at = Column(DateTime)  # Timestamp of when the movement was created
-

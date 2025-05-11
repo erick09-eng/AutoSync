@@ -10,7 +10,7 @@ Classes:
 from sqlalchemy import Column, Integer, String, Double, Boolean, DateTime
 from db.database import Base
 
-
+# pylint: disable=too-few-public-methods
 class Promotions(Base):
     """Represents a promotion.
 

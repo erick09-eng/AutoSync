@@ -8,11 +8,12 @@ Classes:
 """
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+
 from sqlalchemy.dialects.postgresql import JSON
 
 from db.database import Base
 
-
+# pylint: disable=too-few-public-methods
 class AuditLog(Base):
     """Represents an audit log entry.
 

@@ -9,7 +9,7 @@ Classes:
 from sqlalchemy import Column, Integer, String, Boolean
 from db.database import Base
 
-
+# pylint: disable=too-few-public-methods
 class PaymentMethod(Base):
     """Represents a payment method.
 

@@ -12,7 +12,7 @@ from sqlalchemy.types import DateTime
 
 from db.database import Base
 
-
+# pylint: disable=too-few-public-methods
 class Payments(Base):
     """Represents a payment.
 

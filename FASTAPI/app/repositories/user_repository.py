@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.Users import User
+from models import users
 from schemas.UserSchema import UserCreate, UserResponse
 from datetime import datetime
 
