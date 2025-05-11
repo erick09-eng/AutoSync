@@ -1,35 +1,37 @@
-# models/inventory_movements.py
-"""
-This module defines the InventoryMovements model, which represents the
-inventory movements in the system. It includes attributes such as movement ID,
-product ID, user ID, movement type, quantity, reference ID, notes, and creation
-timestamp.
+"""Inventory_movements model module.
+
+This module contains the SQLAlchemy ORM model for tracking inventory movements.
+
+Classes:
+    Inventory_movements: Represents an inventory movement record.
+
 """
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from db.database import Base
 
-# pylint: disable=too-few-public-methods
-class InventoryMovements(Base):
-    """
-    Represents an inventory movement in the database.
+
+class Inventory_movements(Base):
+    """Represents an inventory movement.
+
     Attributes:
-        movement_id (int): The unique identifier for the inventory movement.
-        product_id (int): The ID of the product associated with the movement.
-        user_id (int): The ID of the user who performed the movement.
-        movement_type (str): The type of movement (e.g., purchase, sale).
-        quantity (int): The quantity of the product moved.
-        reference_id (int): A reference ID for the movement.
+        movement_id (int): Primary key for the inventory movement.
+        product_id (int): Foreign key to the products table.
+        user_id (int): Foreign key to the users table.
+        movement_type (str): Type of movement (purchase, sale, adjustment).
+        quantity (int): Quantity moved.
+        reference_id (int): Reference ID related to the movement.
         notes (str): Additional notes about the movement.
-        created_at (datetime): The timestamp when the movement was created.
+        created_at (datetime): Timestamp when the movement was created.
     """
+
     __tablename__ = "inventory_movements"
 
     movement_id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(Integer, index=True)  # Foreign key to products table
-    user_id = Column(Integer, index=True)  # Foreign key to users table
-    movement_type = Column(String, index=True)  # purchase, sale, adjustment
+    product_id = Column(Integer,ForeignKey("products.product_id"), index=True)  # Foreign key to products table
+    user_id = Column(Integer, ForeignKey("users.user_id"),index=True)  # Foreign key to users table
+    movement_type = Column(String(255), index=True)  # purchase, sale, adjustment
     quantity = Column(Integer)
     reference_id = Column(Integer, index=True)
-    notes = Column(String)  # Additional notes about the movement
+    notes = Column(String(255))  # Additional notes about the movement
     created_at = Column(DateTime)  # Timestamp of when the movement was created

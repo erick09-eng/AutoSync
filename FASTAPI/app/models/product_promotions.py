@@ -1,26 +1,24 @@
-"""
-This module defines the Product_Promotions model, which represents the 
-many-to-many relationship between products and promotions in the database.
+"""Product_promotions model module.
 
-The Product_Promotions table includes:
-- `product_id`: A foreign key referencing the `products` table.
-- `promotion_id`: A foreign key referencing the `promotions` table.
+This module contains the SQLAlchemy ORM model for product promotions.
 
-The combination of `product_id` and `promotion_id` serves as the primary key.
+Classes:
+    Product_Promotions: Represents a product promotion association.
+
 """
-# models/product_promotions.py
 
 from sqlalchemy import Column, Integer, PrimaryKeyConstraint, ForeignKey
 from db.database import Base
 
-# pylint: disable=too-few-public-methods
-class ProductPromotions(Base):
-    """
-    Represents the many-to-many relationship between products and promotions in the database.
+
+class Product_Promotions(Base):
+    """Represents a product promotion association.
+
     Attributes:
-        product_id (int): A foreign key referencing the `products` table.
-        promotion_id (int): A foreign key referencing the `promotions` table.
+        product_id (int): Foreign key to the products table.
+        promotion_id (int): Foreign key to the promotions table.
     """
+
     __tablename__ = "product_promotions"
 
     product_id = Column(Integer, ForeignKey("products.product_id"), nullable=False)

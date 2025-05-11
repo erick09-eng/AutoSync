@@ -1,33 +1,39 @@
-# models/payments.py
-""""
-This module defines the Payments model, which represents the payments made
-in the system. It includes attributes such as payment ID, sale ID, payment method
-ID, amount, transaction code, payment date, and status.
+"""Payments model module.
+
+This module contains the SQLAlchemy ORM model for payments.
+
+Classes:
+    Payments: Represents a payment record.
+
 """
-from sqlalchemy import Column, Integer, String, Double
+
+from sqlalchemy import Column, Integer, String, Double, ForeignKey
 from sqlalchemy.types import DateTime
 
 from db.database import Base
 
 # pylint: disable=too-few-public-methods
 class Payments(Base):
-    """
-    Represents a payment in the database.
+    """Represents a payment.
+
     Attributes:
-        payment_id (int): The unique identifier for the payment.
-        sale_id (int): The ID of the sale associated with the payment.
-        payment_method_id (int): The ID of the payment method used.
-        amount (float): The amount paid.
-        transaction_code (str): The transaction code or reference number.
-        payment_date (datetime): The date of payment.
-        status (str): The status of the payment (e.g., pending, completed, failed).
+        payment_id (int): Primary key for the payment.
+        sale_id (int): Foreign key to the sales table.
+        payment_method_id (int): Foreign key to the payment methods table.
+        amount (float): Amount paid.
+        transaction_code (str): Transaction code or reference number.
+        payment_date (datetime): Date of payment (YYYY-MM-DD).
+        status (str): Status of the payment (pending, completed, failed).
     """
+
     __tablename__ = "payments"
 
     payment_id = Column(Integer, primary_key=True, index=True)
-    sale_id = Column(Integer, index=True)  # Foreign key to sales table
-    payment_method_id = Column(Integer, index=True)  # Foreign key to payment methods table
+    sale_id = Column(Integer,ForeignKey("sales.sale_id"), index=True)  # Foreign key to sales table
+    payment_method_id = Column(Integer,ForeignKey("payment_methods.payment_method_id"), index=True)  # Foreign key to payment methods table
     amount = Column(Double)  # Amount paid
-    transaction_code = Column(String)  # Transaction code or reference number
+    transaction_code = Column(String(255))  # Transaction code or reference number
     payment_date = Column(DateTime)  # Date of payment (YYYY-MM-DD)
-    status = Column(String)  # Status of the payment (pending, completed, failed)
+    status = Column(String(255))  # Status of the payment (pending, completed, failed)
+
+
