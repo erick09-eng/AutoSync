@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class PaymentMethodBase(BaseModel):
   
-    name : str
+    payment_method_name : str
     description : str
     requieres_authorization : bool
     

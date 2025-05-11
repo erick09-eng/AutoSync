@@ -19,6 +19,6 @@ class PaymentMethod(Base):
     __tablename__ = "payment_methods"
 
     payment_method_id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    payment_method_name = Column(String, index=True)
     description = Column(String, index=True)
     requieres_authorization = Column(Boolean, default=False)

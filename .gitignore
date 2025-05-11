@@ -56,3 +56,4 @@ MySQL/data/mysql.sock
 
 
 Makefile
+FASTAPI/pylint_scores.csv

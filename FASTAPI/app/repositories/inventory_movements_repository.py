@@ -4,7 +4,7 @@ Inventory Movements Repository
 This module contains the functions to interact with the inventory movements table in the database.
 It includes functions to create, read, update, and delete inventory movements.
 """
-from models.inventory_movements import Inventory_movements
+from models.inventory_movements import InventoryMovements
 from schemas.inventory_movements import InventoryMovementCreate
 from sqlalchemy.orm import Session
 
@@ -16,7 +16,7 @@ def create_movement(db: Session, movement: InventoryMovementCreate):
     Returns:
         Inventory_movements: The created inventory movement.
     """
-    db_movement = Inventory_movements(**movement.dict())
+    db_movement = InventoryMovements(**movement.dict())
     db.add(db_movement)
     db.commit()
     db.refresh(db_movement)
@@ -30,7 +30,7 @@ def get_movement(db: Session, movement_id: int):
     Returns:
         Inventory_movements: The inventory movement with the specified ID.
     """
-    return db.query(Inventory_movements).filter(
+    return db.query(InventoryMovements).filter(
         Inventory_movements.movement_id == movement_id).first()
 
 def get_all_movements(db: Session):
@@ -40,4 +40,4 @@ def get_all_movements(db: Session):
     Returns:
         List[Inventory_movements]: A list of all inventory movements.
     """
-    return db.query(Inventory_movements).all()
+    return db.query(InventoryMovements).all()
