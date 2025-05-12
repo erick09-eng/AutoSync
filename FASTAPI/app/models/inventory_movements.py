@@ -1,3 +1,4 @@
+# app/models/inventory_movements.py
 """Inventory_movements model module.
 
 This module contains the SQLAlchemy ORM model for tracking inventory movements.
@@ -11,7 +12,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from db.database import Base
 
 
-class Inventory_movements(Base):
+class InventoryMovements(Base):
     """Represents an inventory movement.
 
     Attributes:

@@ -1,3 +1,4 @@
+# app/models/audit_log.py
 """Audit_log model module.
 
 This module contains the SQLAlchemy ORM model for audit logs.
@@ -38,5 +39,4 @@ class AuditLog(Base):
     new_values = Column(JSON)
     ip_address = Column(String(255))
     created_at = Column(DateTime)
-    
     

@@ -1,3 +1,4 @@
+# app/models/payment_methods.py
 """Payment_methods model module.
 This module contains the SQLAlchemy ORM model for payment methods.
 
@@ -15,7 +16,7 @@ class PaymentMethod(Base):
 
     Attributes:
         payment_method_id (int): Primary key for the payment method.
-        name (str): Name of the payment method.
+        payment_method_name (str): Name of the payment method.
         description (str): Description of the payment method.
         requires_authorization (bool): Indicates if authorization is required.
     """
@@ -23,7 +24,6 @@ class PaymentMethod(Base):
     __tablename__ = "payment_methods"
 
     payment_method_id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), index=True)
+    payment_method_name = Column(String(255), index=True)
     description = Column(String(255), index=True)
     requires_authorization = Column(Boolean, default=False)
-

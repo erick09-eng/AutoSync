@@ -1,3 +1,4 @@
+# app/models/sale_details.py
 """Sale_details model module.
 
 This module contains the SQLAlchemy ORM model for sale details.
@@ -10,8 +11,7 @@ Classes:
 from sqlalchemy import Column, Integer, Double, ForeignKey
 from db.database import Base
 
-
-class Sale_details(Base):
+class SaleDetails(Base):
     """Represents a sale detail.
 
     Attributes:
@@ -33,9 +33,3 @@ class Sale_details(Base):
     unit_price = Column(Double, index=True)
     discount_percentage = Column(Double, index=True)
     subtotal = Column(Double)
-    
-    
-
-    
-    
-

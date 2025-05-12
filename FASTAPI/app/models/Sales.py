@@ -1,3 +1,4 @@
+# app/models/sales.py
 """Sales model module.
 
 This module contains the SQLAlchemy ORM model for sales.

@@ -18,20 +18,20 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from db.database import Base  # Import your Base
-from models.Audit_log import AuditLog
-from models.Category import Category
-from models.Customers import Customers
-from models.DocumentType import DocumentType
-from models.inventory_movements import Inventory_movements
-from models.Payment_methods import PaymentMethod
-from models.Payments import Payments
-from models.product_promotions import Product_Promotions
-from models.Product import Product
+from models.audit_log import AuditLog
+from models.category import Category
+from models.customers import Customers
+from models.document_type import DocumentType
+from models.inventory_movements import InventoryMovements
+from models.payment_methods import PaymentMethod
+from models.payments import Payments
+from models.product_promotions import ProductPromotions
+from models.product import Product
 from models.promotions import Promotions
-from models.Roles import Roles
-from models.sale_details import Sale_details
-from models.Sales import Sale
-from models.Users import User
+from models.roles import Roles
+from models.sale_details import SaleDetails
+from models.sales import Sale
+from models.users import User
 
 
 target_metadata = Base.metadata

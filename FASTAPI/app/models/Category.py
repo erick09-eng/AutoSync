@@ -1,3 +1,4 @@
+# app/models/category.py
 """Category model module.
 
 This module contains the SQLAlchemy ORM model for categories.
