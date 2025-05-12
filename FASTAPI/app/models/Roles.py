@@ -1,3 +1,4 @@
+# app/models/roles.py
 """Roles model module.
 
 This module contains the SQLAlchemy ORM model for roles.

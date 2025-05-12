@@ -30,6 +30,8 @@ services:
       context: ./FASTAPI
       dockerfile: Dockerfile
     container_name: fastapi
+    volumes:
+      - ./FASTAPI/alembic/versions:/app/alembic/versions
     restart: always
     networks:
       - new_net

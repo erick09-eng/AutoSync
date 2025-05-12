@@ -1,3 +1,4 @@
+# app/models/product.py
 """Product model module.
 
 This module contains the SQLAlchemy ORM model for products.

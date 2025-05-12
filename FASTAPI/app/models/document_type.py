@@ -1,3 +1,4 @@
+# app/models/document_type.py
 """DocumentType model module.
 
 This module contains the SQLAlchemy ORM model for document types.

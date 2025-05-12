@@ -1,3 +1,4 @@
+# app/models/product_promotions.py
 """Product_promotions model module.
 
 This module contains the SQLAlchemy ORM model for product promotions.
@@ -11,7 +12,7 @@ from sqlalchemy import Column, Integer, PrimaryKeyConstraint, ForeignKey
 from db.database import Base
 
 
-class Product_Promotions(Base):
+class ProductPromotions(Base):
     """Represents a product promotion association.
 
     Attributes:

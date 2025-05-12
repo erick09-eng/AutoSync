@@ -1,3 +1,4 @@
+# app/models/promotions.py
 """Promotions model module.
 
 This module contains the SQLAlchemy ORM model for promotions.
@@ -37,6 +38,3 @@ class Promotions(Base):
     end_date = Column(DateTime)  # YYYY-MM-DD
     is_active = Column(Boolean)  # 1 for active, 0 for inactive
     created_at = Column(DateTime)  # YYYY-MM-DD
-    
-    
-

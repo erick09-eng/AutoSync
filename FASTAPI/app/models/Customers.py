@@ -1,3 +1,4 @@
+# app/models/customers.py
 """Customers model module.
 
 This module contains the SQLAlchemy ORM model for customers.

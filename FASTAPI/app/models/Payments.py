@@ -1,3 +1,4 @@
+# app/models/payments.py
 """Payments model module.
 
 This module contains the SQLAlchemy ORM model for payments.
@@ -35,5 +36,3 @@ class Payments(Base):
     transaction_code = Column(String(255))  # Transaction code or reference number
     payment_date = Column(DateTime)  # Date of payment (YYYY-MM-DD)
     status = Column(String(255))  # Status of the payment (pending, completed, failed)
-
-
