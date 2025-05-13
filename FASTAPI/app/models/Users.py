@@ -1,5 +1,11 @@
+"""
+This module defines the User model for the database.
+
+The User model represents user information in the application.
+"""
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from db.database import Base
+
 
 class User(Base):
     __tablename__ = "users"
