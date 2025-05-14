@@ -1,6 +1,7 @@
 FROM python:3.9
 
 COPY ./app /app
+COPY .env /app/.env
 COPY ./requirements.txt /app
 COPY ./startup.sh /app/startup.sh
 COPY ./alembic.ini /app
