@@ -9,7 +9,7 @@ from services.categories_service import (
     delete_category,
 )
 
-from schemas.CategorySchema import CategoryCreate, CategoryResponse
+from schemas.category_schema import CategoryCreate, CategoryResponse
 
 router = APIRouter()
 
