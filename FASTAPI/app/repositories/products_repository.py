@@ -4,11 +4,9 @@ Products Repository
 This module contains the functions to interact with the products table in the database.
 It includes functions to create, read, update, and delete products.
 """
-from sqlalchemy.orm import Session
-
 from models.product import Product
-from schemas.ProductSchema import ProductCreate as ProductsCreate, ProductResponse
-from datetime import datetime
+from schemas.product_schema import ProductCreate as ProductsCreate
+from sqlalchemy.orm import Session
 
 def create_product(db: Session, product: ProductsCreate):
     """Create a new product in the database.

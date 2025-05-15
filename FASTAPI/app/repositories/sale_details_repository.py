@@ -6,7 +6,6 @@ and list sale detail records.
 It abstracts the database operations and provides a clean interface for the service layer.
 It provides functions to create, retrieve, and list sale detail records.
 """
-from models import sale_details as Sale_details
 from typing import Optional, List
 from models.sale_details import SaleDetails
 from schemas.sale_details import SaleDetailCreate

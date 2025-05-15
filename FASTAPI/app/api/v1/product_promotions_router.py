@@ -1,8 +1,19 @@
+#app/services/inventory_movements_service.py
+"""
+This module defines the service layer for handling inventory movements in the system.
+It includes functions for creating and retrieving inventory movements.
+"""
+from schemas.product_promotions import(
+    ProductPromotionsCreate,
+    ProductPromotionsResponse
+)
+from services.product_promotions_service import (create_product_promotion,
+                                                 get_product_promotion,
+                                                 get_all_product_promotions,
+                                                 delete_product_promotion)
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.session import get_db
-from schemas.product_promotions import ProductPromotionsCreate, ProductPromotionsResponse
-from services.product_promotions_service import create_product_promotion, get_product_promotion, get_all_product_promotions, delete_product_promotion  # Importa las funciones directamente
 
 router = APIRouter()
 

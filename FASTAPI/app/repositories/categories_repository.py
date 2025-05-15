@@ -1,22 +1,26 @@
+# app/repositories/categories_repository.py
+"""Repository for managing categories in the database."""
+from models.category import Category
+from schemas.category_schema import CategoryCreate
 from sqlalchemy.orm import Session
 
-from models.category import Category as Categories
-from schemas.CategorySchema import CategoryCreate as CategoriesCreate
-
-def create_category(db: Session, category: CategoriesCreate):
-    db_category = Categories(**category.dict())
+def create_category(db: Session, category: CategoryCreate):
+    """Create a new category in the database."""
+    db_category = Category(**category.dict())
     db.add(db_category)
     db.commit()
     db.refresh(db_category)
     return db_category
 
 def get_category(db: Session, category_id: int):
-    return db.query(Categories).filter(Categories.id == category_id).first()
+    """Retrieve a category by its ID."""
+    return db.query(Category).filter(Category.id == category_id).first()
 
 def get_all_categories(db: Session):
-    return db.query(Categories).all()
+    """Retrieve all categories."""
+    return db.query(Category).all()
 
-def update_category(db: Session, category_id: int, category: CategoriesCreate):
+def update_category(db: Session, category_id: int, category: CategoryCreate):
     db_category = get_category(db, category_id)
     if db_category:
         for key, value in category.dict().items():
@@ -24,6 +28,7 @@ def update_category(db: Session, category_id: int, category: CategoriesCreate):
         db.commit()
         
 def delete_category(db: Session, category_id: int):
+    """Delete a category by its ID."""
     db_category = get_category(db, category_id)
     if db_category:
         db.delete(db_category)

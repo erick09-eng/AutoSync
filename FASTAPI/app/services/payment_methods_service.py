@@ -11,14 +11,15 @@ Functions:
     get_all_payment_methods_service(db: Session):
         Retrieves all registered payment methods.
 """
-from sqlalchemy.orm import Session
 from repositories.payment_methods_repository import (
     create_payment_method,
     get_payment_method,
-    get_all_payment_methods
+    get_all_payment_methods,
+    update_payment_method,
+    delete_payment_method,
 )
 from schemas.payment_methods import PaymentMethodCreate
-
+from sqlalchemy.orm import Session
 
 def create_payment_method_service(db: Session, payment_method: PaymentMethodCreate):
     """
@@ -51,3 +52,27 @@ def get_all_payment_methods_service(db: Session):
         A list of all payment methods.
     """
     return get_all_payment_methods(db)
+
+def update_payment_method_service(db: Session, payment_method_id: int,
+                                  payment_method: PaymentMethodCreate):
+    """
+    Update a payment method by its ID.
+    Args:
+        db (Session): The database session.
+        payment_method_id (int): The ID of the payment method to update.
+        payment_method (PaymentMethodCreate): The updated payment method data.
+    Returns:
+        The updated payment method.
+    """
+    return update_payment_method(db, payment_method_id, payment_method)
+
+def delete_payment_method_service(db: Session, payment_method_id: int):
+    """
+    Delete a payment method by its ID.
+    Args:
+        db (Session): The database session.
+        payment_method_id (int): The ID of the payment method to delete.
+    Returns:
+        The deleted payment method.
+    """
+    return delete_payment_method(db, payment_method_id)
