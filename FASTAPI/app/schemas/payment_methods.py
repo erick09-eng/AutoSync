@@ -1,4 +1,5 @@
-#schemas/payment_methods.py
+#app/schemas/payment_methods.py
+# pylint: disable=too-few-public-methods
 """ Schemas for payment methods """
 from pydantic import BaseModel
 

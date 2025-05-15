@@ -1,8 +1,8 @@
 #schemas/audit_log.py
+# pylint: disable=too-few-public-methods
 """ Schemas for audit logs """
 from datetime import datetime
 from pydantic import BaseModel, Json
-
 
 class AuditLogBase(BaseModel):
     """ Base schema for audit logs """

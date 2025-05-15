@@ -7,7 +7,10 @@ from sqlalchemy.orm import Session
 from repositories.inventory_movements_repository import (
     create_movement,
     get_movement,
-    get_all_movements)
+    get_all_movements,
+    update_movement,
+    delete_movement
+)
 from schemas.inventory_movements import InventoryMovementCreate
 
 def create_movement_service(db: Session, movement: InventoryMovementCreate):
@@ -18,7 +21,6 @@ def create_movement_service(db: Session, movement: InventoryMovementCreate):
     Returns:
         InventoryMovements: The created inventory movement.
     """
-    # TO DO Aquí se prondría la lógica de negocio (por ejemplo validar tipo de movimiento)
     return create_movement(db, movement)
 
 def get_movement_service(db: Session, movement_id: int):
@@ -39,3 +41,25 @@ def get_all_movements_service(db: Session):
         List[InventoryMovements]: A list of all inventory movements.
     """
     return get_all_movements(db)
+
+def update_movement_service(db: Session, movement_id: int,
+                            movement: InventoryMovementCreate):
+    """Update an existing inventory movement.
+    Args:
+        db (Session): The database session.
+        movement_id (int): The ID of the inventory movement to update.
+        movement (InventoryMovementCreate): The updated inventory movement data.
+    Returns:
+        InventoryMovements: The updated inventory movement.
+    """
+    return update_movement(db, movement_id, movement)
+
+def delete_movement_service(db: Session, movement_id: int):
+    """Delete an inventory movement by its ID.
+    Args:
+        db (Session): The database session.
+        movement_id (int): The ID of the inventory movement to delete.
+    Returns:
+        InventoryMovements: The deleted inventory movement.
+    """
+    return delete_movement(db, movement_id)

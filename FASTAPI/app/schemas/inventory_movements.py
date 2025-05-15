@@ -1,4 +1,5 @@
-#schemas/inventory_movements.py
+#app/schemas/inventory_movements.py
+# pylint: disable=too-few-public-methods
 from pydantic import BaseModel
 from datetime import datetime
 

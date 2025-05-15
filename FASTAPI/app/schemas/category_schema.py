@@ -1,4 +1,5 @@
 #app/schemas/category_schema.py
+# pylint: disable=too-few-public-methods
 """Schema for managing categories in the database."""
 from typing import Optional
 from pydantic import BaseModel

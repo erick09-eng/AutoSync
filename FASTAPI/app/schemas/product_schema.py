@@ -1,8 +1,16 @@
-from pydantic import BaseModel
+#app/schemas/product_schema.py
+# pylint: disable=too-few-public-methods
+"""Product schema module.
+This module defines the Pydantic models for product data.
+"""
 from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 class ProductBase(BaseModel):
+    """
+        Base model for product data.
+    """
     sku: Optional[str] = None
     name: str
     description: Optional[str]
@@ -18,13 +26,21 @@ class ProductBase(BaseModel):
     updated_at: Optional[datetime] = None
 
 class ProductCreate(ProductBase):
-    pass
+    """
+        Model for creating product data.
+    """
 
 class ProductUpdate(ProductBase):
-    pass
+    """
+        Model for updating product data.
+    """
 
 class ProductResponse(ProductBase):
+    """
+        Model for product data response.
+    """
     product_id: int
 
     class Config:
+        """Pydantic configuration."""
         from_attributes = True

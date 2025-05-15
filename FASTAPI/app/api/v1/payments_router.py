@@ -1,7 +1,6 @@
 #api/v1/payments_router.py
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from db.session import get_db
+"""FastAPI router for payments."""
+from typing import List
 from services.payments_service import (
     create_new_payment,
     get_payment_by_id,
@@ -9,7 +8,9 @@ from services.payments_service import (
     update_existing_payment,
 )
 from schemas.payments import PaymentCreate, PaymentResponse
-from typing import List
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from db.session import get_db
 
 router = APIRouter()
 @router.post("/", response_model=PaymentResponse)
@@ -54,8 +55,6 @@ def delete_payment(payment_id: int, db: Session = Depends(get_db)):
     db_payment = get_payment_by_id(db, payment_id)
     if db_payment is None:
         raise HTTPException(status_code=404, detail="Payment not found")
-    
-    # TODO have a function to delete the payment
     db.delete(db_payment)
     db.commit()
     return db_payment

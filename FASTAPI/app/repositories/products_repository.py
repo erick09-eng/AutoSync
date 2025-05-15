@@ -5,7 +5,7 @@ This module contains the functions to interact with the products table in the da
 It includes functions to create, read, update, and delete products.
 """
 from models.product import Product
-from schemas.ProductSchema import ProductCreate as ProductsCreate
+from schemas.product_schema import ProductCreate as ProductsCreate
 from sqlalchemy.orm import Session
 
 def create_product(db: Session, product: ProductsCreate):

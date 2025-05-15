@@ -31,7 +31,7 @@ def get_movement(db: Session, movement_id: int):
         Inventory_movements: The inventory movement with the specified ID.
     """
     return db.query(InventoryMovements).filter(
-        Inventory_movements.movement_id == movement_id).first()
+        InventoryMovements.movement_id == movement_id).first()
 
 def get_all_movements(db: Session):
     """Get all inventory movements.
@@ -41,3 +41,35 @@ def get_all_movements(db: Session):
         List[Inventory_movements]: A list of all inventory movements.
     """
     return db.query(InventoryMovements).all()
+
+def update_movement(db: Session, movement_id: int, movement: InventoryMovementCreate):
+    """Update an inventory movement by its ID.
+    Args:
+        db (Session): The database session.
+        movement_id (int): The ID of the inventory movement to update.
+        movement (InventoryMovementCreate): The updated inventory movement data.
+    Returns:
+        Inventory_movements: The updated inventory movement.
+    """
+    db_movement = get_movement(db, movement_id)
+    if db_movement:
+        for key, value in movement.dict().items():
+            setattr(db_movement, key, value)
+        db.commit()
+        db.refresh(db_movement)
+    return db_movement
+
+def delete_movement(db: Session, movement_id: int):
+    """Delete an inventory movement by its ID.
+    Args:
+        db (Session): The database session.
+        movement_id (int): The ID of the inventory movement to delete.
+    Returns:
+        bool: True if the deletion was successful, False otherwise.
+    """
+    db_movement = get_movement(db, movement_id)
+    if db_movement:
+        db.delete(db_movement)
+        db.commit()
+        return True
+    return False
