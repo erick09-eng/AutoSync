@@ -1,5 +1,11 @@
-# services/payments_service.py
-from sqlalchemy.orm import Session
+# app/services/payments_service.py
+"""
+This module contains the business logic for handling payment-related operations.
+It interacts with the database through the repository layer and handles
+exceptions that may occur during these operations.
+It provides functions to create, retrieve, update, and delete payment records.
+"""
+from models.payments import Payments
 from repositories.payments_repository import (
     create_payment,
     get_payment,
@@ -7,11 +13,9 @@ from repositories.payments_repository import (
     update_payment,
     delete_payment,
 )
-from schemas.payments import PaymentCreate, PaymentResponse
-from models.Payments import Payments
+from schemas.payments import PaymentCreate
+from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from datetime import datetime
-
 
 def create_new_payment(db: Session, payment: PaymentCreate) -> Payments:
     """
@@ -21,7 +25,7 @@ def create_new_payment(db: Session, payment: PaymentCreate) -> Payments:
         new_payment = create_payment(db, payment)
         return new_payment
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error creating payment: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error creating payment: {str(e)}") from e
 
 def get_payment_by_id(db: Session, payment_id: int) -> Payments:
     """
@@ -33,8 +37,8 @@ def get_payment_by_id(db: Session, payment_id: int) -> Payments:
             raise HTTPException(status_code=404, detail="Payment not found")
         return payment
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving payment: {str(e)}")
-    
+        raise HTTPException(status_code=500, detail=f"Error retrieving payment: {str(e)}") from e
+
 def get_all_payments_list(db: Session) -> list[Payments]:
     """
     Retrieve all payment records.
@@ -43,7 +47,7 @@ def get_all_payments_list(db: Session) -> list[Payments]:
         payments = get_all_payments(db)
         return payments
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error retrieving payments: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error retrieving payments: {str(e)}") from e
 
 def update_existing_payment(db: Session, payment_id: int, payment: PaymentCreate) -> Payments:
     """
@@ -55,9 +59,8 @@ def update_existing_payment(db: Session, payment_id: int, payment: PaymentCreate
             raise HTTPException(status_code=404, detail="Payment not found")
         return updated_payment
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error updating payment: {str(e)}")
-    
-    
+        raise HTTPException(status_code=500, detail=f"Error updating payment: {str(e)}") from e
+
 def delete_existing_payment(db: Session, payment_id: int) -> Payments:
     """
     Delete a payment record by its ID.
@@ -68,4 +71,4 @@ def delete_existing_payment(db: Session, payment_id: int) -> Payments:
             raise HTTPException(status_code=404, detail="Payment not found")
         return deleted_payment
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error deleting payment: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error deleting payment: {str(e)}") from e

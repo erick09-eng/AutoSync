@@ -1,31 +1,27 @@
-"""
-Module defining document types (e.g., ID cards, passports, etc.).
+# app/models/document_type.py
+"""DocumentType model module.
 
-Contains the DocumentType model for identity document classification in database.
-"""
+This module contains the SQLAlchemy ORM model for document types.
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    Text
-)
+Classes:
+    DocumentType: Represents a document type.
+
+"""
+from sqlalchemy import Column, Integer, String, Text
 from db.database import Base
 
-
 class DocumentType(Base):
-    """
-    Represents types of identity documents in the system.
-
+    """Represents a document type.
     Attributes:
-        document_type_id (int): Primary key identifier
-        code (str): Unique document type code (e.g., "PASSPORT")
-        name (str): Full document type name (e.g., "Passport")
-        description (str): Optional detailed description
+        document_type_id (int): Primary key for the document type.
+        code (str): Code of the document type.
+        name (str): Name of the document type.
+        description (str): Description of the document type.
     """
+
     __tablename__ = "document_types"
 
-    document_type_id = Column(Integer, primary_key=True, index=True) #primary key
+    document_type_id = Column(Integer, primary_key=True, index=True)
     code = Column(String(50), nullable=False)
     name = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)

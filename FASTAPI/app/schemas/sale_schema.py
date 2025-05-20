@@ -1,11 +1,16 @@
-"""FastAPI schema for Sale model"""
-from pydantic import BaseModel
+"""
+    Sale Schema
+    This module contains the Pydantic models for sale data validation and serialization.
+"""
 from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 
 class SaleBase(BaseModel):
-    """Base schema for Sale model"""
+    """
+    Base model for sale data.
+    """
     document_type_id: int
     serial_number: str
     customer_id: int
@@ -14,26 +19,31 @@ class SaleBase(BaseModel):
     tax_amount: float
     discount_amount: Optional[float] = 0.0
     total_amount: Optional[float] = 0.0
-    payment_method: Optional[str] = "cash"
+    payment_method: int
     status: Optional[str] = "completed"
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
 
 class SaleCreate(SaleBase):
-    """Schema for creating new Sale records"""
+    """
+    Model for creating sale data.
+    """
     pass
 
 
 class SaleUpdate(SaleBase):
-    """Schema for updating existing Sale records"""
+    """
+    Model for updating sale data.
+    """
     pass
 
 
 class SaleResponse(SaleBase):
-    """Schema for Sale response including ID"""
+    """
+    Model for sale data response.
+    """
     sale_id: int
 
     class Config: # pylint: disable=too-few-public-methods
-        """Configuration for Pydantic models"""
         from_attributes = True

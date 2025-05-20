@@ -1,21 +1,25 @@
-"""
-This module defines the Roles model for the database.
+# app/models/roles.py
+"""Roles model module.
 
-The Roles model represents user roles within the application.
+This module contains the SQLAlchemy ORM model for roles.
+
+Classes:
+    Roles: Represents a user role.
+
 """
+
 from sqlalchemy import Column, Integer, String, Text
 from db.database import Base
 
-
-class Roles(Base):
-    """
-    Represents a user role in the database.
+class Roles(Base): # pylint: disable=too-few-public-methods
+    """Represents a user role.
 
     Attributes:
-        role_id: The primary key for the role.
-        role_name: The name of the role.
-        role_description: A description of the role.
+        role_id (int): Primary key for the role.
+        role_name (str): Name of the role.
+        role_description (str): Description of the role.
     """
+
     __tablename__ = "roles"
 
     role_id = Column(Integer, primary_key=True, index=True)

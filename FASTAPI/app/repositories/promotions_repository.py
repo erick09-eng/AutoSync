@@ -1,10 +1,24 @@
-#repositories/promotions_repository.py
-from sqlalchemy.orm import Session
+#app/repositories/promotions_repository.py
+"""Promotions Repository
+This module contains the functions to interact with the promotions table in the database.
+It includes functions to create, read, update, and delete promotions.
+"""
+from datetime import datetime
 from models.promotions import Promotions
 from schemas.promotions import PromotionsCreate, PromotionsResponse
-from datetime import datetime
+from sqlalchemy.orm import Session
 
-def create_promotion(db: Session, promotion: PromotionsCreate) -> PromotionsResponse:
+def create_promotion(
+    db: Session,
+    promotion: PromotionsCreate
+    ) -> PromotionsResponse:
+    """Create a new promotion in the database.
+    Args:
+        db (Session): The database session.
+        promotion (PromotionsCreate): The promotion to create.
+    Returns:
+        PromotionsResponse: The created promotion.
+    """
     db_promotion = Promotions(
         name=promotion.name,
         description=promotion.description,
@@ -21,13 +35,39 @@ def create_promotion(db: Session, promotion: PromotionsCreate) -> PromotionsResp
     return db_promotion
 
 def get_promotion(db: Session, promotion_id: int) -> PromotionsResponse:
+    """Get a promotion by its ID.
+    Args:
+        db (Session): The database session.
+        promotion_id (int): The ID of the promotion to retrieve.
+        Returns:
+            PromotionsResponse: The promotion with the specified ID.
+    """
     return db.query(Promotions).filter(Promotions.promotion_id == promotion_id).first()
 
 def get_all_promotions(db: Session) -> list[PromotionsResponse]:
+    """Get all promotions.
+    Args:
+        db (Session): The database session.
+    Returns:
+        list[PromotionsResponse]: A list of all promotions.
+    """
     return db.query(Promotions).all()
 
-def update_promotion(db: Session, promotion_id: int, promotion: PromotionsCreate) -> PromotionsResponse:
-    db_promotion = db.query(Promotions).filter(Promotions.promotion_id == promotion_id).first()
+def update_promotion(
+    db: Session,
+    promotion_id: int,
+    promotion: PromotionsCreate
+    ) -> PromotionsResponse:
+    """Update a promotion by its ID.
+    Args:
+        db (Session): The database session.
+        promotion_id (int): The ID of the promotion to update.
+        promotion (PromotionsCreate): The updated promotion data.
+    Returns:
+        PromotionsResponse: The updated promotion.
+    """
+    db_promotion = db.query(Promotions).filter(
+        Promotions.promotion_id == promotion_id).first()
     if db_promotion:
         db_promotion.name = promotion.name
         db_promotion.description = promotion.description
@@ -41,11 +81,17 @@ def update_promotion(db: Session, promotion_id: int, promotion: PromotionsCreate
     return db_promotion
 
 def delete_promotion(db: Session, promotion_id: int) -> bool:
-    db_promotion = db.query(Promotions).filter(Promotions.promotion_id == promotion_id).first()
+    """Delete a promotion by its ID.
+    Args:
+        db (Session): The database session.
+        promotion_id (int): The ID of the promotion to delete.
+    Returns:
+        bool: True if the promotion was deleted, False otherwise.
+    """
+    db_promotion = db.query(Promotions).filter(
+        Promotions.promotion_id == promotion_id).first()
     if db_promotion:
         db.delete(db_promotion)
         db.commit()
         return True
     return False
-
-    

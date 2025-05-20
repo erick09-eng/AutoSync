@@ -1,29 +1,30 @@
-"""FastAPI schema for Sale model"""
+#app/schemas/category_schema.py
+# pylint: disable=too-few-public-methods
+"""Schema for managing categories in the database."""
 from typing import Optional
 from pydantic import BaseModel
 
 
+# pylint: disable=too-few-public-methods
 class CategoryBase(BaseModel):
-    """Base schema for Category model"""
+    """Base schema for categories."""
     name: str
     description: Optional[str] = None
     parent_category_id: Optional[int] = None
 
 
 class CategoryCreate(CategoryBase):
-    """Schema for creating new Category records"""
-    pass
+    """Schema for creating a new category."""
 
 
 class CategoryUpdate(CategoryBase):
-    """Schema for updating existing Category records"""
-    pass
+    """Schema for updating an existing category."""
 
 
 class CategoryResponse(CategoryBase):
-    """Schema for Category response including ID"""
+    """Schema for returning category data."""
     category_id: int
 
-    class Config: # pylint: disable=too-few-public-methods
-        """Configuration for Pydantic models"""
+    class Config:
+        """Configuration for the schema."""
         from_attributes = True

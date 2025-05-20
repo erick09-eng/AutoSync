@@ -1,7 +1,11 @@
 FROM python:3.9
 
 COPY ./app /app
+COPY .env /app/.env
 COPY ./requirements.txt /app
+COPY ./startup.sh /app/startup.sh
+COPY ./alembic.ini /app
+COPY ./alembic /app/alembic
 
 WORKDIR /app
 
@@ -10,5 +14,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-client &&
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
+RUN chmod +x /app/startup.sh
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload", "--port", "8000"]
+CMD ["/app/startup.sh"]

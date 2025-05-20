@@ -1,7 +1,8 @@
-"""""
-User schema for FastAPI application.
-This module defines the Pydantic models for user-related operations.
-"""""
+"""
+user_schema.py
+This module defines the Pydantic models for the User entity.
+It includes models for creating, updating, and retrieving users.
+"""
 from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel, EmailStr
@@ -9,7 +10,10 @@ from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):
     """
-    Base schema for User with common attributes.
+    Base schema for User model.
+    This schema is used for creating and updating users.
+    It includes common fields such as username, password_hash, full_name,
+    email, role_id, is_active, created_at, and updated_at.
     """
     username: str
     password_hash: str
@@ -23,30 +27,24 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     """
-    Schema for new user registration.
-
-    Inherits all fields from UserBase.
-    Additional validation can be added here for creation-specific rules.
+    Schema for creating a new user.
+    Inherits from UserBase and includes additional validation if needed.
     """
     pass
 
 
 class UserUpdate(UserBase):
     """
-    Schema for updating existing user information.
-
-    Inherits all fields from UserBase.
-    Additional validation can be added here for update-specific rules.
+    Schema for updating an existing user.
+    Inherits from UserBase and includes additional validation if needed.
     """
     pass
 
 
 class UserResponse(UserBase):
     """
-    Complete user schema for API responses.
-
-    Attributes:
-        user_id (int): Unique database identifier
+    Schema for retrieving a user.
+    Inherits from UserBase and includes the user ID.
     """
     user_id: int
 
