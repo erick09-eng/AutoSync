@@ -1,6 +1,6 @@
 #app/repositories/customers_repository.py
 """Repository for managing users in the database."""
-from models import Users as User
+from models import users as User
 from schemas.UserSchema import UserCreate
 from sqlalchemy.orm import Session
 

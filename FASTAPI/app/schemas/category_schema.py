@@ -16,11 +16,10 @@ class CategoryBase(BaseModel):
 class CategoryCreate(CategoryBase):
     """Schema for creating a new category."""
 
-
 class CategoryUpdate(CategoryBase):
     """Schema for updating an existing category."""
-
-
+    
+    
 class CategoryResponse(CategoryBase):
     """Schema for returning category data."""
     category_id: int
