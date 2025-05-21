@@ -40,10 +40,12 @@ def list_all(db: Session = Depends(get_db)):
     return get_all_products(db)
 
 @router.put("/{product_id}", response_model=ProductsResponse)
-def update(product_id: int, product: ProductsCreate,
-           db: Session = Depends(get_db)):
+def update(product_id: int, product: ProductsCreate, db: Session = Depends(get_db)):
     """Update a product by ID."""
-    return update_product(db, product_id, product)
+    updated_product = update_product(db, product_id, product)
+    if not updated_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return updated_product
 
 @router.delete("/{product_id}")
 def delete(product_id: int, db: Session = Depends(get_db)):

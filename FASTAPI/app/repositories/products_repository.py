@@ -30,7 +30,7 @@ def get_product(db: Session, product_id: int):
     Returns:
         ProductResponse: The product with the specified ID.
     """
-    return db.query(Product).filter(Product.id == product_id).first()
+    return db.query(Product).filter(Product.product_id == product_id).first()
 
 def get_all_products(db: Session):
     """Get all products.
@@ -55,6 +55,10 @@ def update_product(db: Session, product_id: int, product: ProductsCreate):
         for key, value in product.dict().items():
             setattr(db_product, key, value)
         db.commit()
+        db.refresh(db_product)  # Asegúrate de refrescar el objeto actualizado
+        return db_product
+    return None
+        
 
 def delete_product(db: Session, product_id: int):
     """Delete a product by its ID.
