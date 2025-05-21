@@ -6,7 +6,7 @@
     It interacts with the database to perform CRUD operations.
 """
 from models.users import User
-from schemas.UserSchema import UserCreate
+from schemas.user_schema import UserCreate
 from sqlalchemy.orm import Session
 
 

@@ -33,6 +33,8 @@ services:
     volumes:
       - ./FASTAPI/alembic/versions:/app/alembic/versions
     restart: always
+    env_file:
+      - .env
     networks:
       - new_net
 
