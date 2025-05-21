@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI
 from api.v1 import payments_router
 from api.v1 import payment_methods_router
@@ -16,7 +15,10 @@ from api.v1 import products_router
 from api.v1 import document_types_router
 from api.v1 import sales_router
 
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # Load environment variables from .env file
 
 app = FastAPI(
     root_path="/autosync"
@@ -38,7 +40,6 @@ app.include_router(inventory_movements_router.router, prefix="/api/v1/inventory_
 app.include_router(promotions_router.router, prefix="/api/v1/promotions", tags=["promotions"])
 app.include_router(product_promotions_router.router, prefix="/api/v1/product_promotions", tags=["product_promotions"])
 app.include_router(audit_log_router.router, prefix="/api/v1/audit_logs", tags=["audit_logs"])
-
 
 app.include_router(categories_router.router, prefix="/api/v1/categories", tags=["categories"])
 app.include_router(products_router.router, prefix="/api/v1/products", tags=["products"])

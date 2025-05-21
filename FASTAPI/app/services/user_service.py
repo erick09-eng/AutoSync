@@ -4,7 +4,7 @@ This module contains the business logic for user-related operations.
 It interacts with the user repository to perform CRUD operations.
 """
 from repositories import user_repository
-from schemas.UserSchema import UserCreate
+from schemas.user_schema import UserCreate
 from sqlalchemy.orm import Session
 
 def create_user(db: Session, user: UserCreate):
