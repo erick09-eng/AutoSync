@@ -27,7 +27,7 @@ def update_user(db: Session, user_id: int, user: UserCreate):
         for key, value in user.dict().items():
             setattr(db_user, key, value)
         db.commit()
-        
+
 def delete_user(db: Session, user_id: int):
     """Delete a user by its ID."""
     db_user = get_user(db, user_id)

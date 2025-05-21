@@ -7,6 +7,7 @@ from models import sales as Sales
 from schemas.sale_schema import SaleCreate as SalesCreate
 from sqlalchemy.orm import Session
 
+
 def create_sale(db: Session, sale: SalesCreate):
     """
         Create a new sale in the database.
@@ -17,17 +18,20 @@ def create_sale(db: Session, sale: SalesCreate):
     db.refresh(db_sale)
     return db_sale
 
+
 def get_sale(db: Session, sale_id: int):
     """
         Get a sale by ID.
     """
     return db.query(Sales).filter(Sales.id == sale_id).first()
 
+
 def get_all_sales(db: Session):
     """
         Get all sales records.
     """
     return db.query(Sales).all()
+
 
 def update_sale(db: Session, sale_id: int, sale: SalesCreate):
     """
@@ -38,7 +42,8 @@ def update_sale(db: Session, sale_id: int, sale: SalesCreate):
         for key, value in sale.dict().items():
             setattr(db_sale, key, value)
         db.commit()
-        
+
+
 def delete_sale(db: Session, sale_id: int):
     """
         Delete a sale by ID.

@@ -11,7 +11,7 @@ Classes:
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from db.database import Base
 
-class Category(Base):
+class Category(Base): # pylint: disable=too-few-public-methods
     """Represents a product category.
 
     Attributes:
