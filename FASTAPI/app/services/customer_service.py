@@ -1,18 +1,34 @@
+"""
+customer_service.py
+Service for managing customers.
+This module contains the functions to interact with the customers table in the database.
+It includes functions to create, read, update, and delete customers.
+"""
 from repositories import customers_repository as CustomersRepository
-from schemas.CustomerSchema import CustomerCreate as CustomersCreate
+from schemas.customer_schema import CustomerCreate as CustomersCreate
 from sqlalchemy.orm import Session
 
+
 def create_customer(db: Session, customer: CustomersCreate):
-    return CustomersRepository.create(db, customer)
+    """Create a new customer in the database."""
+    return CustomersRepository.create_customer(db, customer)
+
 
 def get_customer(db: Session, customer_id: int):
-    return CustomersRepository.get_by_id(db, customer_id)
+    """Get a customer by its ID."""
+    return CustomersRepository.get_customer(db, customer_id)
+
 
 def get_all_customers(db: Session):
-    return CustomersRepository.get_all(db)
+    """Get all customers."""
+    return CustomersRepository.get_all_customers(db)
+
 
 def update_customer(db: Session, customer_id: int, customer: CustomersCreate):
-    return CustomersRepository.update(db, customer_id, customer)
+    """Update a customer by its ID."""
+    return CustomersRepository.update_customer(db, customer_id, customer)
+
 
 def delete_customer(db: Session, customer_id: int):
-    return CustomersRepository.delete(db, customer_id)
+    """Delete a customer by its ID."""
+    return CustomersRepository.delete_customer(db, customer_id)

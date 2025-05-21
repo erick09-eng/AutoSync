@@ -1,11 +1,8 @@
 # app/models/users.py
 """Users model module.
-
 This module contains the SQLAlchemy ORM model for users.
-
 Classes:
     User: Represents a user.
-
 """
 
 from sqlalchemy import Column, Integer, String, Boolean, DateTime,ForeignKey
@@ -33,7 +30,7 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     full_name = Column(String(255), nullable=False)
     email = Column(String(255), nullable=True)
-    role_id = Column(Integer, ForeignKey("roles.role_id"), nullable=False)  # ForeignKey("roles.role_id")
+    role_id = Column(Integer, ForeignKey("roles.role_id"), nullable=False)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)

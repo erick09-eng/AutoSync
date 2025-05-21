@@ -1,8 +1,10 @@
 #api/v1/promotions_router.py
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from db.session import get_db
-
+"""
+promotions_router.py
+This module defines the API endpoints for managing promotions in a FastAPI application.
+It includes endpoints for creating, reading, updating, and deleting promotions.
+Each endpoint uses the corresponding service function to interact with the database.
+"""
 from schemas.promotions import PromotionsCreate, PromotionsResponse
 from services.promotions_service import (
     create_new_promotion,
@@ -12,6 +14,9 @@ from services.promotions_service import (
     delete_existing_promotion
 )
 from models.promotions import Promotions
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from db.session import get_db
 
 router = APIRouter()
 
@@ -51,7 +56,3 @@ def delete_promotion(promotion_id: int, db: Session = Depends(get_db)):
     """
     delete_existing_promotion(db, promotion_id)
     return {"detail": "Promotion deleted successfully"}
-# This code defines the API endpoints for managing promotions in a FastAPI application.
-# It includes endpoints for creating, reading, updating, and deleting promotions.
-# Each endpoint uses the corresponding service function to interact with the database.
-# The code also includes error handling to return appropriate HTTP status codes and messages.

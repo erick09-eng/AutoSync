@@ -1,8 +1,16 @@
-from pydantic import BaseModel
+"""
+    Sale Schema
+    This module contains the Pydantic models for sale data validation and serialization.
+"""
 from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel
+
 
 class SaleBase(BaseModel):
+    """
+    Base model for sale data.
+    """
     document_type_id: int
     serial_number: str
     customer_id: int
@@ -16,14 +24,26 @@ class SaleBase(BaseModel):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
+
 class SaleCreate(SaleBase):
+    """
+    Model for creating sale data.
+    """
     pass
+
 
 class SaleUpdate(SaleBase):
+    """
+    Model for updating sale data.
+    """
     pass
 
+
 class SaleResponse(SaleBase):
+    """
+    Model for sale data response.
+    """
     sale_id: int
 
-    class Config:
+    class Config: # pylint: disable=too-few-public-methods
         from_attributes = True

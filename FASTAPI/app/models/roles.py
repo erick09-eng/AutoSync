@@ -11,7 +11,7 @@ Classes:
 from sqlalchemy import Column, Integer, String, Text
 from db.database import Base
 
-class Roles(Base):
+class Roles(Base): # pylint: disable=too-few-public-methods
     """Represents a user role.
 
     Attributes:

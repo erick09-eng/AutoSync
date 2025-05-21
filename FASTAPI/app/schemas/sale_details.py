@@ -1,10 +1,12 @@
-# schemas/sale_details.py
+# app/schemas/sale_details.py
+# pylint: disable=too-few-public-methods
 from pydantic import BaseModel
 from typing import Optional
 
-#SaleDetailsBase, son los campos que se envial al cliente a crear por ejemplo un post, no mandamos el pk de la tabla 
 class SaleDetailBase(BaseModel):
-    
+    """
+        Base model for sale details.
+    """
     sale_id : int
     product_id : int
     quantity : int
@@ -12,14 +14,19 @@ class SaleDetailBase(BaseModel):
     discount_percentage : float
     subtotal : Optional[float] = 0
 
-
 class SaleDetailCreate(SaleDetailBase):
-    pass  # Mismo que el base para crear
+    """
+        Model for creating sale details.
+    """
 
-
-# cuando se crea el detalle de la venta la base de datos genera el id, y lo responde 
 class SaleDetailResponse(SaleDetailBase):
+    """
+        Model for response of sale details.
+    """
     sale_detail_id : int
 
     class Config:
+        """"
+            Configurations for the SaleDetailResponse model.
+        """
         from_attributes = True

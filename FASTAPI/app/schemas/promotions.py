@@ -1,8 +1,15 @@
 #schemas/promotions.py
-from pydantic import BaseModel
+# pylint: disable=too-few-public-methods
+"""Promotions schema module.
+This module defines the Pydantic models for promotions data.
+"""
 from datetime import datetime
+from pydantic import BaseModel
 
 class PromotionsBase(BaseModel):
+    """
+        Base model for promotions data.
+    """
     name : str
     description : str
     discount_type : str
@@ -11,13 +18,18 @@ class PromotionsBase(BaseModel):
     end_date : datetime
     is_active : bool
     created_at : datetime
-    # created_at : datetime = datetime.now()  # Default to current time
 
 class PromotionsCreate(PromotionsBase):
-    pass
+    """ 
+        Model for creating promotions data.
+    """
 
 class PromotionsResponse(PromotionsBase):
+    """
+        Model for promotions data response.
+    """
     promotion_id : int
 
     class Config:
+        """Pydantic configuration."""
         from_attributes = True  # This allows Pydantic to work with SQLAlchemy models

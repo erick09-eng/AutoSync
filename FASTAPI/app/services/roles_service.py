@@ -1,18 +1,25 @@
+#app/services/roles_service.py
+"""FastAPI service for managing user roles."""
+from repositories import roles_repository
+from schemas.roles_schema import RoleCreate
 from sqlalchemy.orm import Session
-from repositories import roles_repository as RolesRepository
-from schemas.RolesSchema import RoleCreate, RoleResponse
 
 def create_role(db: Session, role: RoleCreate):
-    return RolesRepository.create_role(db, role)
+    """Create a new role."""
+    return roles_repository.create_role(db, role)
 
 def get_role(db: Session, role_id: int):
-    return RolesRepository.get_role(db, role_id)
+    """Get a role by its ID."""
+    return roles_repository.get_role(db, role_id)
 
 def get_all_roles(db: Session):
-    return RolesRepository.get_all_roles(db)
+    """Get a list of all roles."""
+    return roles_repository.get_all_roles(db)
 
 def update_role(db: Session, role_id: int, role: RoleCreate):
-    return RolesRepository.update_role(db, role_id, role)
+    """Update an existing role."""
+    return roles_repository.update_role(db, role_id, role)
 
 def delete_role(db: Session, role_id: int):
-    return RolesRepository.delete_role(db, role_id)
+    """Delete a role by its ID."""
+    return roles_repository.delete_role(db, role_id)
