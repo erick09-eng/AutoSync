@@ -18,7 +18,6 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from db.database import Base  # Import your Base
-from models.audit_log import AuditLog
 from models.category import Category
 from models.customers import Customers
 from models.document_type import DocumentType

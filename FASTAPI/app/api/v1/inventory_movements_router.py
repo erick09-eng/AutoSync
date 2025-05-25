@@ -10,9 +10,10 @@ from services.inventory_movements_service import (
     get_movement_service,
     get_all_movements_service,
     update_movement_service,
-    delete_movement_service
-)
-from schemas.inventory_movements import InventoryMovementCreate, InventoryMovementResponse
+    )
+from schemas.inventory_movements import(InventoryMovementCreate, 
+                                        InventoryMovementResponse
+    ) 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.session import get_db
@@ -46,14 +47,6 @@ def update_movement(movement_id: int,
                     db: Session = Depends(get_db)):
     """Update an existing inventory movement."""
     db_movement = update_movement_service(db, movement_id, movement)
-    if db_movement is None:
-        raise HTTPException(status_code=404, detail="Movement not found")
-    return db_movement
-
-@router.delete("/{movement_id}", response_model=InventoryMovementResponse)
-def delete_movement(movement_id: int, db: Session = Depends(get_db)):
-    """Delete an inventory movement."""
-    db_movement = delete_movement_service(db, movement_id)
     if db_movement is None:
         raise HTTPException(status_code=404, detail="Movement not found")
     return db_movement

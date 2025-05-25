@@ -3,10 +3,15 @@
 This module contains the functions to interact with the promotions table in the database.
 It includes functions to create, read, update, and delete promotions.
 """
-from datetime import datetime
+from datetime import datetime,timezone, timedelta
 from models.promotions import Promotions
 from schemas.promotions import PromotionsCreate, PromotionsResponse
 from sqlalchemy.orm import Session
+
+def get_colombia_time():
+    """Get current time in Colombia timezone (UTC-5)."""
+    colombia_tz = timezone(timedelta(hours=-5))
+    return datetime.now(colombia_tz)
 
 def create_promotion(
     db: Session,
@@ -27,7 +32,7 @@ def create_promotion(
         start_date=promotion.start_date,
         end_date=promotion.end_date,
         is_active=promotion.is_active,
-        created_at=datetime.now()
+        created_at=get_colombia_time()
     )
     db.add(db_promotion)
     db.commit()
