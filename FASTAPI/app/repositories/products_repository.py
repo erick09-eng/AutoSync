@@ -25,12 +25,12 @@ def create_product(db: Session, product: ProductsCreate):
             status_code=404,
             detail=f"Category with id {product.category_id} not found"
         )
-        
+
     # create dictionary for product data and add timestamps
     product_data = product.dict()
     product_data['created_at'] = get_colombia_time()
     product_data['updated_at'] = get_colombia_time()
-    
+
     # create the product
     try:
         db_product = Product(**product_data)
@@ -73,13 +73,13 @@ def update_product(db: Session, product_id: int, product: ProductsCreate):
             detail=f"Product with id {product_id} not found"
         )
 
-    update_product = product.dict(exclude_unset=True)
-    update_product['updated_at'] = get_colombia_time()
-    
+    data_product = product.dict(exclude_unset=True)
+    data_product['updated_at'] = get_colombia_time()
+
     for key, value in product.dict().items():
         setattr(db_product, key, value)
     db.commit()
-    db.refresh(db_product)  
+    db.refresh(db_product)
     return db_product
 
 def delete_product(db: Session, product_id: int):

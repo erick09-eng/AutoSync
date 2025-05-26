@@ -32,6 +32,7 @@ def update_role(db: Session, role_id: int, role: RoleCreate):
         db.commit()
         db.refresh(db_role)
         return db_role
+    return None
 
 def delete_role(db: Session, role_id: int):
     """Delete a role by ID."""
@@ -40,3 +41,4 @@ def delete_role(db: Session, role_id: int):
         db.delete(db_role)
         db.commit()
         return True
+    return False

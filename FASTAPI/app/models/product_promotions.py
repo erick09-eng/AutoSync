@@ -8,6 +8,7 @@ Classes:
 
 """
 
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, PrimaryKeyConstraint, ForeignKey
 from db.database import Base
 

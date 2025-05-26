@@ -45,4 +45,3 @@ def update_sale(db: Session, sale_id: int, sale: SalesCreate):
         db.refresh(db_sale)
         return db_sale
     return None
-

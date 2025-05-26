@@ -18,6 +18,13 @@ def create_category(db: Session, category: CategoryCreate):
     return categories_repository.create_category(db, category)
 
 def get_category(db: Session, category_id: int):
+    """Get a category by its ID.
+    Args:
+        db (Session): The database session.
+        category_id (int): The ID of the category to retrieve.
+    Returns:
+        Category: The category with the specified ID.
+    """
     return categories_repository.get_category(db, category_id)
 
 def get_all_categories(db: Session):
@@ -26,7 +33,7 @@ def get_all_categories(db: Session):
         db (Session): The database session.
         Returns:
             list[Category]: A list of all categories.
-    """        
+    """
     return categories_repository.get_all_categories(db)
 
 def update_category(db: Session,

@@ -6,6 +6,7 @@ The models are used in the API endpoints to ensure that the data received and se
 is in the correct format.
 """
 
+# pylint: disable=too-few-public-methods
 from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel, EmailStr

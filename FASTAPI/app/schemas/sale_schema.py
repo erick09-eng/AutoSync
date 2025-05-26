@@ -45,6 +45,6 @@ class SaleResponse(SaleBase):
     """
     sale_id: int
 
-    class Config: 
+    class Config:
         """Pydantic configuration."""
         from_attributes = True

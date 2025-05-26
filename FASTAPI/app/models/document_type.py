@@ -7,6 +7,7 @@ Classes:
     DocumentType: Represents a document type.
 
 """
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, String, Text
 from db.database import Base
 

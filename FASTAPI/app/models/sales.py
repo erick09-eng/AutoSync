@@ -7,7 +7,7 @@ Classes:
     Sale: Represents a sale record.
 
 """
-
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey
 from db.database import Base
 

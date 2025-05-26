@@ -9,7 +9,7 @@ class ProductPromotionsBase(BaseModel):
     """Base model for product promotions."""
     product_id : int
     promotion_id : int
-    
+
 class ProductPromotionsCreate(ProductPromotionsBase):
     """Model for creating product promotions."""
 

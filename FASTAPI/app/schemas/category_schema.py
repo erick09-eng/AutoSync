@@ -18,8 +18,7 @@ class CategoryCreate(CategoryBase):
 
 class CategoryUpdate(CategoryBase):
     """Schema for updating an existing category."""
-    
-    
+
 class CategoryResponse(CategoryBase):
     """Schema for returning category data."""
     category_id: int

@@ -31,7 +31,9 @@ class Payments(Base):
 
     payment_id = Column(Integer, primary_key=True, index=True)
     sale_id = Column(Integer,ForeignKey("sales.sale_id"), index=True)  # Foreign key to sales table
-    payment_method_id = Column(Integer,ForeignKey("payment_methods.payment_method_id"), index=True)  # Foreign key to payment methods table
+    payment_method_id = Column(Integer,
+                               ForeignKey("payment_methods.payment_method_id"),
+                               index=True)  # Foreign key to payment methods table
     amount = Column(Double)  # Amount paid
     transaction_code = Column(String(255))  # Transaction code or reference number
     payment_date = Column(DateTime)  # Date of payment (YYYY-MM-DD)

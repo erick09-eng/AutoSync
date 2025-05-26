@@ -11,9 +11,9 @@ from services.inventory_movements_service import (
     get_all_movements_service,
     update_movement_service,
     )
-from schemas.inventory_movements import(InventoryMovementCreate, 
+from schemas.inventory_movements import(InventoryMovementCreate,
                                         InventoryMovementResponse
-    ) 
+    )
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.session import get_db

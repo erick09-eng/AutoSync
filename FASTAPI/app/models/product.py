@@ -7,7 +7,7 @@ Classes:
     Product: Represents a product.
 
 """
-
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey
 from db.database import Base
 

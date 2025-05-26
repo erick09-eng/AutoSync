@@ -1,7 +1,14 @@
+"""Database connection and session management for FastAPI application.
+This module sets up the connection to the MySQL database using SQLAlchemy.
+It creates a session local class for database interactions and a base class for
+ORM models.
+"""
+# pylint: disable=invalid-name
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
+
 
 # Removed dotenv loading from here, assuming it is loaded in main.py
 

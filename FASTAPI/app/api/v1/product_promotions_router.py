@@ -29,15 +29,16 @@ def create_product_promotion_route(
     return create_product_promotion(db, product_promotion)
 
 # Get a product promotion by ID
-@router.get("/{promotion_id}", response_model=ProductPromotionsResponse)
-def get_product_promotion_route(
+@router.get("/{product_id}/{promotion_id}", response_model=ProductPromotionsResponse)
+def read(
+    product_id: int,
     promotion_id: int,
     db: Session = Depends(get_db)
 ):
     """
-    Get a product promotion by ID.
+    Get a product promotion by product ID and promotion ID.
     """
-    product_promotion = get_product_promotion(db, promotion_id)
+    product_promotion = get_product_promotion(db, product_id=product_id, promotion_id=promotion_id)
     if not product_promotion:
         raise HTTPException(status_code=404, detail="Product promotion not found")
     return product_promotion
@@ -53,15 +54,16 @@ def get_all_product_promotions_route(
     return get_all_product_promotions(db)
 
 # Delete a product promotion
-@router.delete("/{promotion_id}", response_model=dict)
+@router.delete("/{product_id}/{promotion_id}", response_model=dict)
 def delete_product_promotion_route(
+    product_id: int,
     promotion_id: int,
     db: Session = Depends(get_db)
 ):
     """
     Delete a product promotion.
     """
-    deleted = delete_product_promotion(db, promotion_id)
+    deleted = delete_product_promotion(db, product_id=product_id, promotion_id=promotion_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Product promotion not found")
     return {"detail": "Product promotion deleted successfully"}

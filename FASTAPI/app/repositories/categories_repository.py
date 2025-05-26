@@ -22,6 +22,7 @@ def get_all_categories(db: Session):
     return db.query(Category).all()
 
 def update_category(db: Session, category_id: int, category: CategoryCreate):
+    """Update an existing category by its ID."""
     db_category = get_category(db, category_id)
     if not db_category:
         raise HTTPException(
@@ -34,7 +35,7 @@ def update_category(db: Session, category_id: int, category: CategoryCreate):
     db.commit()
     db.refresh(db_category)
     return db_category
-        
+
 def delete_category(db: Session, category_id: int):
     """Delete a category by its ID."""
     db_category = get_category(db, category_id)
