@@ -7,7 +7,7 @@ Classes:
     Inventory_movements: Represents an inventory movement record.
 
 """
-
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from db.database import Base
 
@@ -29,8 +29,11 @@ class InventoryMovements(Base):
     __tablename__ = "inventory_movements"
 
     movement_id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(Integer,ForeignKey("products.product_id"), index=True)  # Foreign key to products table
-    user_id = Column(Integer, ForeignKey("users.user_id"),index=True)  # Foreign key to users table
+    product_id = Column(Integer,
+                        ForeignKey("products.product_id"),
+                        index=True)# Foreign key to products table
+    user_id = Column(Integer,
+                     ForeignKey("users.user_id"),index=True)  # Foreign key to users table
     movement_type = Column(String(255), index=True)  # purchase, sale, adjustment
     quantity = Column(Integer)
     reference_id = Column(Integer, index=True)

@@ -10,19 +10,19 @@ from services.customer_service import (
     update_customer,
     delete_customer,
 )
-from schemas.customer_schema import CustomerCreate as CustomersCreate, CustomerResponse as CustomersResponse
+from schemas.customer_schema import CustomerCreate, CustomerResponse
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.session import get_db
 
 router = APIRouter()
 
-@router.post("/", response_model=CustomersResponse)
-def create(customer: CustomersCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=CustomerResponse)
+def create(customer: CustomerCreate, db: Session = Depends(get_db)):
     """Create a new customer."""
     return create_customer(db, customer)
 
-@router.get("/{customer_id}", response_model=CustomersResponse)
+@router.get("/{customer_id}", response_model=CustomerResponse)
 def read(customer_id: int, db: Session = Depends(get_db)):
     """Get a customer by its ID."""
     db_customer = get_customer(db, customer_id)
@@ -30,13 +30,13 @@ def read(customer_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Customer not found")
     return db_customer
 
-@router.get("/", response_model=list[CustomersResponse])
+@router.get("/", response_model=list[CustomerResponse])
 def list_all(db: Session = Depends(get_db)):
     """Get all customers."""
     return get_all_customers(db)
 
-@router.put("/{customer_id}", response_model=CustomersResponse)
-def update(customer_id: int, customer: CustomersCreate,
+@router.put("/{customer_id}", response_model=CustomerResponse)
+def update(customer_id: int, customer: CustomerCreate,
            db: Session = Depends(get_db)):
     """Update an existing customer."""
     return update_customer(db, customer_id, customer)

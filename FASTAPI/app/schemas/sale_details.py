@@ -1,7 +1,15 @@
 # app/schemas/sale_details.py
+"""SaleDetail schemas module.
+This module contains Pydantic schemas for sale details.
+Classes:
+    SaleDetailBase: Base schema for sale details.
+    SaleDetailCreate: Schema for creating sale details.
+    SaleDetailResponse: Schema for response of sale details.
+"""
 # pylint: disable=too-few-public-methods
-from pydantic import BaseModel
 from typing import Optional
+from pydantic import BaseModel
+
 
 class SaleDetailBase(BaseModel):
     """

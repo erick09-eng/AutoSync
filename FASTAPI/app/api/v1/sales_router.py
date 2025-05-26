@@ -4,7 +4,7 @@ from services.sales_service import (
     create_sale,
     get_sale,
     update_sale,
-    delete_sale,
+    get_all_sales
 )
 from schemas.sale_schema import SaleCreate, SaleUpdate, SaleResponse
 from fastapi import APIRouter, Depends, HTTPException
@@ -35,8 +35,8 @@ def update(sale_id: int, sale: SaleUpdate,
     """
     return update_sale(db, sale_id, sale)
 
-@router.delete("/{sale_id}")
-def delete(sale_id: int, db: Session = Depends(get_db)):
-    """Delete a sale by ID.
+@router.get("/", response_model=list[SaleResponse])
+def read_all(db: Session = Depends(get_db)):
+    """Get all sales.
     """
-    return delete_sale(db, sale_id)
+    return get_all_sales(db)

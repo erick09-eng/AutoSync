@@ -58,18 +58,3 @@ def update_movement(db: Session, movement_id: int, movement: InventoryMovementCr
         db.commit()
         db.refresh(db_movement)
     return db_movement
-
-def delete_movement(db: Session, movement_id: int):
-    """Delete an inventory movement by its ID.
-    Args:
-        db (Session): The database session.
-        movement_id (int): The ID of the inventory movement to delete.
-    Returns:
-        bool: True if the deletion was successful, False otherwise.
-    """
-    db_movement = get_movement(db, movement_id)
-    if db_movement:
-        db.delete(db_movement)
-        db.commit()
-        return True
-    return False

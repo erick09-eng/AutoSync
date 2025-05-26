@@ -4,7 +4,7 @@ This module contains the SQLAlchemy ORM model for users.
 Classes:
     User: Represents a user.
 """
-
+# pylint: disable=too-few-public-methods
 from sqlalchemy import Column, Integer, String, Boolean, DateTime,ForeignKey
 from db.database import Base
 

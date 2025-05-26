@@ -1,3 +1,5 @@
+#app/repositories/sales_repository.py
+# pylint: disable=too-few-public-methods
 """
     Sale Schema
     This module contains the Pydantic models for sale data validation and serialization.
@@ -29,14 +31,12 @@ class SaleCreate(SaleBase):
     """
     Model for creating sale data.
     """
-    pass
 
 
 class SaleUpdate(SaleBase):
     """
     Model for updating sale data.
     """
-    pass
 
 
 class SaleResponse(SaleBase):
@@ -45,5 +45,6 @@ class SaleResponse(SaleBase):
     """
     sale_id: int
 
-    class Config: # pylint: disable=too-few-public-methods
+    class Config:
+        """Pydantic configuration."""
         from_attributes = True

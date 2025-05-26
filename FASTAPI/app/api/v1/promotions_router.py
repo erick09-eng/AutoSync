@@ -13,13 +13,11 @@ from services.promotions_service import (
     update_existing_promotion,
     delete_existing_promotion
 )
-from models.promotions import Promotions
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from db.session import get_db
 
 router = APIRouter()
-
 
 @router.post("/", response_model=PromotionsResponse, status_code=status.HTTP_201_CREATED)
 def create_promotion(promotion: PromotionsCreate, db: Session = Depends(get_db)):

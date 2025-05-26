@@ -31,4 +31,3 @@ def update_product(db: Session, product_id: int, product: ProductsCreate):
 def delete_product(db: Session, product_id: int):
     """Delete a product."""
     return products_repository.delete_product(db, product_id)
-    

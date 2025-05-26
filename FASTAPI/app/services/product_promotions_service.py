@@ -4,54 +4,26 @@ Service layer for managing product promotions.
 This module contains functions to create, retrieve, update, and delete product promotions.
 """
 
+from repositories import product_promotions_repository
+from schemas.product_promotions import ProductPromotionsCreate, ProductPromotionsResponse
 from sqlalchemy.orm import Session
-from models.product_promotions import ProductPromotions
-from schemas.product_promotions import ProductPromotionsCreate
-
 
 def create_product_promotion(
-    db: Session,
-    product_promotion:
-        ProductPromotionsCreate
-        ) -> ProductPromotions:
-    """
-    Create a new product promotion.
-    Args:
-        db (Session): Database session.
-        product_promotion (ProductPromotionsCreate): Product promotion data.
-        Returns:   """
-    db_product_promotion = ProductPromotions(**product_promotion.dict())
-    db.add(db_product_promotion)
-    db.commit()
-    db.refresh(db_product_promotion)
-    return db_product_promotion
+    db: Session, product_promotion: ProductPromotionsCreate) -> ProductPromotionsResponse:
+    """Create a new product promotion."""
+    return product_promotions_repository.create_product_promotion(db, product_promotion)
 
-def get_product_promotion(db: Session, product_id: int, promotion_id: int) -> ProductPromotions:
+def get_product_promotion(db: Session, product_id: int,
+                          promotion_id: int) -> ProductPromotionsResponse:
     """Get a product promotion by product_id and promotion_id."""
-    return db.query(ProductPromotions).filter(
-        ProductPromotions.product_id == product_id,
-        ProductPromotions.promotion_id == promotion_id
-    ).first()
+    return product_promotions_repository.get_product_promotion_by_ids(
+        db, product_id, promotion_id)
 
-def get_all_product_promotions(db: Session) -> list[ProductPromotions]:
+def get_all_product_promotions(db: Session) -> list[ProductPromotionsResponse]:
     """Get all product promotions."""
-    return db.query(ProductPromotions).all()
+    return product_promotions_repository.get_all_product_promotions(db)
 
 def delete_product_promotion(db: Session, product_id: int, promotion_id: int) -> bool:
     """Delete a product promotion by product_id and promotion_id."""
-    db_product_promotion = db.query(ProductPromotions).filter(
-        ProductPromotions.product_id == product_id,
-        ProductPromotions.promotion_id == promotion_id
-    ).first()
-
-    if db_product_promotion:
-        db.delete(db_product_promotion)
-        db.commit()
-        return True
-    return False
-
-# Example usage
-# from sqlalchemy.orm import Session
-# from database import get_db
-# from schemas import ProductPromotionsCreate, ProductPromotionsUpdate
-# from services.product_promotions_service import ProductPromotionsService
+    return product_promotions_repository.delete_product_promotion(
+        db, product_id, promotion_id)

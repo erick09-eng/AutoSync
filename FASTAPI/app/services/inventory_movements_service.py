@@ -3,15 +3,15 @@
 This module defines the service layer for handling inventory movements in the system.
 It includes functions for creating and retrieving inventory movements.
 """
-from sqlalchemy.orm import Session
+
 from repositories.inventory_movements_repository import (
     create_movement,
     get_movement,
     get_all_movements,
     update_movement,
-    delete_movement
 )
 from schemas.inventory_movements import InventoryMovementCreate
+from sqlalchemy.orm import Session
 
 def create_movement_service(db: Session, movement: InventoryMovementCreate):
     """Create a new inventory movement in the database.
@@ -53,13 +53,3 @@ def update_movement_service(db: Session, movement_id: int,
         InventoryMovements: The updated inventory movement.
     """
     return update_movement(db, movement_id, movement)
-
-def delete_movement_service(db: Session, movement_id: int):
-    """Delete an inventory movement by its ID.
-    Args:
-        db (Session): The database session.
-        movement_id (int): The ID of the inventory movement to delete.
-    Returns:
-        InventoryMovements: The deleted inventory movement.
-    """
-    return delete_movement(db, movement_id)
