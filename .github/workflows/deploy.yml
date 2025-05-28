@@ -32,25 +32,45 @@ jobs:
         run: |
           # Create .ssh directory
           mkdir -p ~/.ssh
-
+          
           # Write key to file and set proper permissions
           echo "$PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-
+          
           # Add host to known hosts
           ssh-keyscan -H ${HOST_NAME} >> ~/.ssh/known_hosts
-
-          # Use -T flag to disable pseudo-terminal allocation
-          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cat > ${PROJECT_PATH}/.env' 
-          ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${USER_NAME}@${HOST_NAME} <<'EOF'
+          
+          # Test SSH connection first
+          echo "Testing SSH connection..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "echo 'SSH connection successful'"
+          
+          # Create .env file with error handling
+          echo "Creating .env file..."
+          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} "cat > ${PROJECT_PATH}/.env"
+          
+          # Git operations with error handling
+          echo "Starting git operations..."
+          ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${USER_NAME}@${HOST_NAME} << 'EOF'
+            set -e  # Exit on any error
+            echo "Current directory: $(pwd)"
+            echo "PROJECT_PATH: ${PROJECT_PATH}"
+            echo "GIT_REPO: ${GIT_REPO}"
+            
             if [ ! -d "${PROJECT_PATH}/.git" ]; then
+              echo "Cloning repository..."
               mkdir -p $(dirname ${PROJECT_PATH})
               git clone ${GIT_REPO} ${PROJECT_PATH}
+            else
+              echo "Repository already exists, updating..."
             fi
-
+            
             cd ${PROJECT_PATH}
+            echo "Changed to: $(pwd)"
+            
             git checkout main
             git fetch --all
             git reset --hard origin/main
             git pull origin main
+            
+            echo "Deployment completed successfully"
           EOF
