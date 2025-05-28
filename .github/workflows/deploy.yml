@@ -58,7 +58,6 @@ jobs:
             
             if [ ! -d "${PROJECT_PATH}/.git" ]; then
               echo "Cloning repository..."
-              mkdir -p $(dirname ${PROJECT_PATH})
               git clone ${GIT_REPO} ${PROJECT_PATH}
             else
               echo "Repository already exists, updating..."
