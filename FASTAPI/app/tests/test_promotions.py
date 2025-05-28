@@ -1,12 +1,16 @@
-import re
+#app/tests/test_promotions.py
+"""Promotion API tests module.
+This module contains tests for the promotion API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -52,6 +56,7 @@ def client(test_db):
 
 # Test to create a new promotion 
 def test_create_promotion(client):
+    """Test to create a new promotion."""
     response = client.post("/api/v1/promotions/", json={
         "name": "Test Promotion",
         "description": "This is a test promotion",
@@ -59,8 +64,7 @@ def test_create_promotion(client):
         "discount_value": 10.0,
         "start_date": "2023-08-01T12:00:00",
         "end_date": "2023-08-31T23:59:59",
-        "is_active": True,
-        "created_at": "2023-08-01T00:00:00"
+        "is_active": True
     })
     assert response.status_code == 200
     data = response.json()
@@ -71,11 +75,12 @@ def test_create_promotion(client):
     assert data["start_date"] == "2023-08-01T12:00:00"
     assert data["end_date"] == "2023-08-31T23:59:59"
     assert data["is_active"] is True
-    assert data["created_at"] == "2023-08-01T00:00:00"
+    assert "created_at" in data
     assert "promotion_id" in data
 
 # Test to get a promotion by ID
 def test_get_promotion(client):
+    """Test to get a promotion by ID."""
     create_response = client.post("/api/v1/promotions/", json={
         "name" : "Test Promotion",
         "description" : "This is a test promotion",
@@ -83,8 +88,7 @@ def test_get_promotion(client):
         "discount_value" : 10.0,
         "start_date" : "2023-08-01T12:00:00",
         "end_date" : "2023-08-01T23:59:59",
-        "is_active" : True,
-        "created_at" : "2023-08-01T00:00:00"
+        "is_active" : True
     })
     created_promotion = create_response.json()
     response = client.get(f"/api/v1/promotions/{created_promotion['promotion_id']}")
@@ -94,6 +98,7 @@ def test_get_promotion(client):
 
 # Test to get all promotions
 def test_get_promotions(client):
+    """Test to get all promotions."""
     client.post("/api/v1/promotions/", json={
         "name" : "Test Promotion",
         "description" : "This is a test promotion",
@@ -101,10 +106,8 @@ def test_get_promotions(client):
         "discount_value" : 10.0,
         "start_date" : "2023-08-01T12:00:00",
         "end_date" : "2023-08-01T23:59:59",
-        "is_active" : True,
-        "created_at" : "2023-08-01T00:00:00"
+        "is_active" : True
     })
-
     response = client.get("/api/v1/promotions/")
     assert response.status_code == 200
     data = response.json()
@@ -112,6 +115,7 @@ def test_get_promotions(client):
 
 # Test to update a promotion
 def test_update_promotion(client):
+    """Test to update a promotion."""
     create_response = client.post("/api/v1/promotions/", json={
         "name" : "Test Promotion",
         "description" : "This is a test promotion",
@@ -119,11 +123,9 @@ def test_update_promotion(client):
         "discount_value" : 10.0,
         "start_date" : "2023-08-01T12:00:00",
         "end_date" : "2023-08-01T23:59:59",
-        "is_active" : True,
-        "created_at" : "2023-08-01T00:00:00"
+        "is_active" : True
     })
     created_promotion = create_response.json()
-
     response = client.put(
         f"/api/v1/promotions/{created_promotion['promotion_id']}",
         json={"name" : "Updated Promotion",
@@ -132,10 +134,8 @@ def test_update_promotion(client):
         "discount_value" : 5.0,
         "start_date" : "2023-08-02T12:00:00",
         "end_date" : "2023-08-02T23:59:59",
-        "is_active" : False,
-        "created_at" : "2023-08-02T00:00:00"
+        "is_active" : False
     })
-
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == "Updated Promotion"
@@ -145,10 +145,10 @@ def test_update_promotion(client):
     assert data["start_date"] == "2023-08-02T12:00:00"
     assert data["end_date"] == "2023-08-02T23:59:59"
     assert data["is_active"] is False
-    assert data["created_at"] == "2023-08-02T00:00:00"
 
 # Test to delete a promotion 
 def test_delete_promotion(client):
+    """Test to delete a promotion."""
     create_response = client.post("/api/v1/promotions/", json={
         "name" : "Test Promotion",
         "description" : "This is a test promotion",
@@ -156,14 +156,11 @@ def test_delete_promotion(client):
         "discount_value" : 10.0,
         "start_date" : "2023-08-01T12:00:00",
         "end_date" : "2023-08-01T23:59:59",
-        "is_active" : True,
-        "created_at" : "2023-08-01T00:00:00"
+        "is_active" : True
     })
     created_promotion = create_response.json()
-
     response = client.delete(f"/api/v1/promotions/{created_promotion['promotion_id']}")
     assert response.status_code == 200
-
     get_response = client.get(f"/api/v1/promotions/{created_promotion['promotion_id']}")
     assert get_response.status_code == 404
     assert get_response.json()["detail"] == "Promotion not found"

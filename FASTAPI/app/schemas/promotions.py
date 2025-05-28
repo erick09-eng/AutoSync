@@ -4,6 +4,7 @@
 This module defines the Pydantic models for promotions data.
 """
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
 
 class PromotionsBase(BaseModel):
@@ -17,7 +18,7 @@ class PromotionsBase(BaseModel):
     start_date : datetime
     end_date : datetime
     is_active : bool
-    created_at : datetime
+    created_at: Optional[datetime] = None
 
 class PromotionsCreate(PromotionsBase):
     """ 
@@ -28,7 +29,7 @@ class PromotionsResponse(PromotionsBase):
     """
         Model for promotions data response.
     """
-    promotion_id : int
+    promotion_id: int
 
     class Config:
         """Pydantic configuration."""

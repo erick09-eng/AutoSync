@@ -19,7 +19,7 @@ from db.session import get_db
 
 router = APIRouter()
 
-@router.post("/", response_model=PromotionsResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=PromotionsResponse)
 def create_promotion(promotion: PromotionsCreate, db: Session = Depends(get_db)):
     """
     Create a new promotion.
@@ -47,10 +47,9 @@ def update_promotion(promotion_id: int, promotion: PromotionsCreate, db: Session
     """
     return update_existing_promotion(db, promotion_id, promotion)
 
-@router.delete("/{promotion_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{promotion_id}")
 def delete_promotion(promotion_id: int, db: Session = Depends(get_db)):
     """
     Delete a promotion by ID.
     """
-    delete_existing_promotion(db, promotion_id)
-    return {"detail": "Promotion deleted successfully"}
+    return delete_existing_promotion(db, promotion_id)

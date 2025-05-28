@@ -1,11 +1,16 @@
+#app/tests/test_products.py
+"""Product API tests module.
+This module contains tests for the product API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -51,6 +56,7 @@ def client(test_db):
 
 # Test to create a new product
 def test_create_product(client):
+    """Test to create a new product."""
     response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -62,9 +68,7 @@ def test_create_product(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
     assert response.status_code == 200
     data = response.json()
@@ -79,12 +83,13 @@ def test_create_product(client):
     assert data["on_offer"] == True
     assert data["offer_price"] == 1.99
     assert data["is_active"] == True
-    assert data["created_at"] == "2023-08-01T12:00:00"
-    assert data["updated_at"] == "2023-08-01T12:00:00"
     assert "product_id" in data
+    assert "created_at" in data
+    assert "updated_at" in data
 
 # Test to get a product
 def test_get_product(client):
+    """Test to get a product."""
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -96,9 +101,7 @@ def test_get_product(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
     created_product = create_response.json()
     response = client.get(f"/api/v1/products/{created_product['product_id']}")
@@ -109,6 +112,7 @@ def test_get_product(client):
 
 # Test to get all products
 def test_get_all_products(client):
+    """Test to get all products."""
     client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -120,9 +124,7 @@ def test_get_all_products(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
     response = client.get("/api/v1/products/")
     assert response.status_code == 200
@@ -131,6 +133,7 @@ def test_get_all_products(client):
 
 # Test to update an existing product
 def test_update_product(client):
+    """Test to update an existing product."""
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -142,9 +145,7 @@ def test_update_product(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
     created_product = create_response.json()
 
@@ -159,11 +160,8 @@ def test_update_product(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
-
     assert response.status_code == 200
     data = response.json()
     assert data["sku"] == "SKU123"
@@ -177,11 +175,10 @@ def test_update_product(client):
     assert data["on_offer"] == True
     assert data["offer_price"] == 1.99
     assert data["is_active"] == True
-    assert data["created_at"] == "2023-08-01T12:00:00"
-    assert data["updated_at"] == "2023-08-01T12:00:00"
 
 # Test to delete a product
 def test_delete_product(client):
+    """Test to delete a product."""
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -193,15 +190,11 @@ def test_delete_product(client):
         "min_stock": 1,
         "on_offer": True,
         "offer_price": 1.99,
-        "is_active": True,
-        "created_at": "2023-08-01T12:00:00",
-        "updated_at": "2023-08-01T12:00:00"
+        "is_active": True
     })
     created_product = create_response.json()
-
     response = client.delete(f"/api/v1/products/{created_product['product_id']}")
     assert response.status_code == 200
-
     get_response = client.get(f"/api/v1/products/{created_product['product_id']}")
     assert get_response.status_code == 404
     assert get_response.json() == {"detail": "Product not found"}
