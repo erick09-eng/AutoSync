@@ -46,7 +46,7 @@ jobs:
           
           # Create .env file with error handling
           echo "Creating .env file..."
-          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cat > /Users/ndgserver/electivadiadespliegues/AutoSync/.env'
+          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cat > /Users/ndgserver/AutoSync/.env'
           
           # Git operations with error handling
           echo "Starting git operations..."
