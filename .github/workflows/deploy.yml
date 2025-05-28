@@ -1,27 +1,23 @@
-name: Deploy FastAPI Application
+name: Deploy FastAPI aplication
 
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy:
+  Deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        # No token needed for public repo
+      - uses: actions/checkout@v2
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-
-      - name: Deploy to server
+      - name: SSH Deploy
         env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          PRIVATE_KEY: "${{ secrets.SSH_PRIVATE_KEY }}"
+          HOST_NAME: ${{ secrets.SSH_HOST }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
+          GIT_REPO: ${{ secrets.GIT_REPO }}
           ENV_CONTENT: |
             DB_USER=${{ secrets.DB_USER }}
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
@@ -34,17 +30,27 @@ jobs:
             ADMINER_PORT=${{ secrets.ADMINER_PORT }}
             TRAEFIK_DASHBOARD_PORT=${{ secrets.TRAEFIK_DASHBOARD_PORT }}
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
-            mkdir -p /home/garcesduran/proyectos/proyectek-base && \
-            cd /home/garcesduran/proyectos/proyectek-base && \
-            git init && \
-            git remote remove origin || true && \
-            git remote add origin https://github.com/erick09-eng/AutoSync.git && \
-            git fetch origin main && \
-            git reset --hard origin/main' && \
-          echo "$ENV_CONTENT" | ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cat > /home/garcesduran/proyectos/proyectek-base/.env' && \
-          ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
-            cd /home/garcesduran/proyectos/proyectek-base && \
-            docker compose down || true && \
-            docker compose up -d --build && \
-            docker system prune -f'
+          # Create .ssh directory
+          mkdir -p ~/.ssh
+
+          # Write key to file and set proper permissions
+          echo "$PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Add host to known hosts
+          ssh-keyscan -H ${HOST_NAME} >> ~/.ssh/known_hosts
+
+          # Use -T flag to disable pseudo-terminal allocation
+          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cat > ${PROJECT_PATH}.env' && \
+          ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${USER_NAME}@${HOST_NAME} <<EOF
+            if [ ! -d "${PROJECT_PATH}/.git" ]; then
+              mkdir -p \$(dirname ${PROJECT_PATH})
+              git clone ${GIT_REPO} ${PROJECT_PATH}
+            fi
+
+            cd ${PROJECT_PATH}
+            git checkout main
+            git fetch --all
+            git reset --hard origin/main
+            git pull origin main
+          EOF
