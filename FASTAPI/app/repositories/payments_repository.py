@@ -52,6 +52,5 @@ def delete_payment(db: Session, payment_id: int):
     if db_payment:
         db.delete(db_payment)
         db.commit()
-        db.refresh(db_payment)
         return True
     return False
