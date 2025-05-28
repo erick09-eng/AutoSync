@@ -116,19 +116,7 @@ def upgrade() -> None:
     sa.UniqueConstraint('username')
     )
     op.create_index(op.f('ix_users_user_id'), 'users', ['user_id'], unique=False)
-    op.create_table('audit_log',
-    sa.Column('log_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('action', sa.String(length=255), nullable=True),
-    sa.Column('table_name', sa.String(length=255), nullable=True),
-    sa.Column('old_values', postgresql.JSON(astext_type=Text()), nullable=True),
-    sa.Column('new_values', postgresql.JSON(astext_type=Text()), nullable=True),
-    sa.Column('ip_address', sa.String(length=255), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['users.user_id'], ),
-    sa.PrimaryKeyConstraint('log_id')
-    )
-    op.create_index(op.f('ix_audit_log_log_id'), 'audit_log', ['log_id'], unique=False)
+    
     op.create_table('inventory_movements',
     sa.Column('movement_id', sa.Integer(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=True),
@@ -233,8 +221,6 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_inventory_movements_movement_type'), table_name='inventory_movements')
     op.drop_index(op.f('ix_inventory_movements_movement_id'), table_name='inventory_movements')
     op.drop_table('inventory_movements')
-    op.drop_index(op.f('ix_audit_log_log_id'), table_name='audit_log')
-    op.drop_table('audit_log')
     op.drop_index(op.f('ix_users_user_id'), table_name='users')
     op.drop_table('users')
     op.drop_index(op.f('ix_products_product_id'), table_name='products')
