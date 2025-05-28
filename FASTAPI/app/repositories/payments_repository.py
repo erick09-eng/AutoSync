@@ -44,12 +44,3 @@ def update_payment(
         db.commit()
         db.refresh(db_payment)
     return db_payment
-
-def delete_payment(db: Session, payment_id: int):
-    """Delete a payment record by its ID."""
-    db_payment = db.query(Payments).filter(
-        Payments.payment_id == payment_id).first()
-    if db_payment:
-        db.delete(db_payment)
-        db.commit()
-    return db_payment
