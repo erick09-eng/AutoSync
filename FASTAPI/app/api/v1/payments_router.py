@@ -46,15 +46,3 @@ def update_payment(payment_id: int, payment: PaymentCreate, db: Session = Depend
     if db_payment is None:
         raise HTTPException(status_code=404, detail="Payment not found")
     return db_payment
-
-@router.delete("/{payment_id}", response_model=PaymentResponse)
-def delete_payment(payment_id: int, db: Session = Depends(get_db)):
-    """
-    Delete a payment record by its ID.
-    """
-    db_payment = get_payment_by_id(db, payment_id)
-    if db_payment is None:
-        raise HTTPException(status_code=404, detail="Payment not found")
-    db.delete(db_payment)
-    db.commit()
-    return db_payment
