@@ -34,7 +34,7 @@ jobs:
             ADMINER_PORT=${{ secrets.ADMINER_PORT }}
             TRAEFIK_DASHBOARD_PORT=${{ secrets.TRAEFIK_DASHBOARD_PORT }}
         run: |
-          ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
             mkdir -p /home/garcesduran/proyectos/proyectek-base && \
             cd /home/garcesduran/proyectos/proyectek-base && \
             git init && \
