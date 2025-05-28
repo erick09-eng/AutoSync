@@ -11,7 +11,6 @@ from repositories.payments_repository import (
     get_payment,
     get_all_payments,
     update_payment,
-    delete_payment,
 )
 from schemas.payments import PaymentCreate
 from sqlalchemy.orm import Session
@@ -60,15 +59,3 @@ def update_existing_payment(db: Session, payment_id: int, payment: PaymentCreate
         return updated_payment
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error updating payment: {str(e)}") from e
-
-def delete_existing_payment(db: Session, payment_id: int) -> Payments:
-    """
-    Delete a payment record by its ID.
-    """
-    try:
-        deleted_payment = delete_payment(db, payment_id)
-        if not deleted_payment:
-            raise HTTPException(status_code=404, detail="Payment not found")
-        return deleted_payment
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error deleting payment: {str(e)}") from e

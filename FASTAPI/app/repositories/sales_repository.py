@@ -4,11 +4,11 @@ This module contains functions to interact with the Sales table in the database.
 It includes functions to create, read, update, and delete sales records.
 """
 from models.sales import Sale
-from schemas.sale_schema import SaleCreate as SalesCreate
+from schemas.sale_schema import SaleCreate
 from sqlalchemy.orm import Session
 
 
-def create_sale(db: Session, sale: SalesCreate):
+def create_sale(db: Session, sale: SaleCreate):
     """
         Create a new sale in the database.
     """
@@ -33,7 +33,7 @@ def get_all_sales(db: Session):
     return db.query(Sale).all()
 
 
-def update_sale(db: Session, sale_id: int, sale: SalesCreate):
+def update_sale(db: Session, sale_id: int, sale: SaleCreate):
     """
         Update an existing sale.
     """

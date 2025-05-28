@@ -13,7 +13,7 @@ from services.product_service import (
 )
 from schemas.product_schema import (
     ProductCreate as ProductsCreate,
-    ProductResponse as ProductsResponse
+    ProductResponse
     )
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -21,12 +21,12 @@ from db.session import get_db
 
 router = APIRouter()
 
-@router.post("/", response_model=ProductsResponse)
+@router.post("/", response_model=ProductResponse)
 def create(product: ProductsCreate, db: Session = Depends(get_db)):
     """Create a new product."""
     return create_product(db, product)
 
-@router.get("/{product_id}", response_model=ProductsResponse)
+@router.get("/{product_id}", response_model=ProductResponse)
 def read(product_id: int, db: Session = Depends(get_db)):
     """Get a product by ID."""
     db_product = get_product(db, product_id)
@@ -34,12 +34,12 @@ def read(product_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Product not found")
     return db_product
 
-@router.get("/", response_model=list[ProductsResponse])
+@router.get("/", response_model=list[ProductResponse])
 def list_all(db: Session = Depends(get_db)):
     """Get all products."""
     return get_all_products(db)
 
-@router.put("/{product_id}", response_model=ProductsResponse)
+@router.put("/{product_id}", response_model=ProductResponse)
 def update(product_id: int, product: ProductsCreate, db: Session = Depends(get_db)):
     """Update a product by ID."""
     updated_product = update_product(db, product_id, product)

@@ -56,6 +56,15 @@ def client(test_db):
 
 # Test to create a new user
 def test_create_user(client):
+    """Create role"""
+    role_response = client.post("/api/v1/roles/", json={
+        "role_name": "Admin",
+        "role_description": "Administrator role"
+    })
+    assert role_response.status_code == 200
+    data_role = role_response.json()
+    assert "role_id" in data_role
+
     """Test to create a new user."""
     response = client.post("/api/v1/users/", json={
         "username": "johndoe",
@@ -79,6 +88,15 @@ def test_create_user(client):
 
 # Test to get a user by its ID
 def test_get_user_by_id(client):
+    """Create role"""
+    role_response = client.post("/api/v1/roles/", json={
+        "role_name": "Admin",
+        "role_description": "Administrator role"
+    })
+    assert role_response.status_code == 200
+    data_role = role_response.json()
+    assert "role_id" in data_role
+
     """Test to get a user by its ID."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
@@ -96,6 +114,15 @@ def test_get_user_by_id(client):
 
 # Test to get all users
 def test_get_all_users(client):
+    """Create role"""
+    role_response = client.post("/api/v1/roles/", json={
+        "role_name": "Admin",
+        "role_description": "Administrator role"
+    })
+    assert role_response.status_code == 200
+    data_role = role_response.json()
+    assert "role_id" in data_role
+
     """Test to get all users."""
     client.post("/api/v1/users/", json={
         "username": "johndoe",
@@ -112,6 +139,15 @@ def test_get_all_users(client):
 
 # Test to update an existing user
 def test_update_user(client):
+    """Create role"""
+    role_response = client.post("/api/v1/roles/", json={
+        "role_name": "Admin",
+        "role_description": "Administrator role"
+    })
+    assert role_response.status_code == 200
+    data_role = role_response.json()
+    assert "role_id" in data_role
+
     """Test to update an existing user."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
@@ -130,7 +166,7 @@ def test_update_user(client):
         "password_hash": "hashed_password123_updated",
         "full_name": "John Doe Updated",
         "email": "john@updated.com",
-        "role_id": 2,
+        "role_id": 1,
         "is_active": True
     })
     assert response.status_code == 200
@@ -139,11 +175,20 @@ def test_update_user(client):
     assert data["password_hash"] == "hashed_password123_updated"
     assert data["full_name"] == "John Doe Updated"
     assert data["email"] == "john@updated.com"
-    assert data["role_id"] == 2
+    assert data["role_id"] == 1
     assert data["is_active"] is True
 
 # Test to delete a user
 def test_delete_user(client):
+    """Create role"""
+    role_response = client.post("/api/v1/roles/", json={
+        "role_name": "Admin",
+        "role_description": "Administrator role"
+    })
+    assert role_response.status_code == 200
+    data_role = role_response.json()
+    assert "role_id" in data_role
+
     """Test to delete a user."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
