@@ -1,0 +1,50 @@
+name: Deploy FastAPI Application
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        # No token needed for public repo
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+      - name: Deploy to server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          ENV_CONTENT: |
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_HOST=${{ secrets.DB_HOST }}
+            DB_PORT=${{ secrets.DB_PORT }}
+            DB_NAME=${{ secrets.DB_NAME }}
+            PROJECT_NAME=${{ secrets.PROJECT_NAME }}
+            API_WORKERS=${{ secrets.API_WORKERS }}
+            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+            ADMINER_PORT=${{ secrets.ADMINER_PORT }}
+            TRAEFIK_DASHBOARD_PORT=${{ secrets.TRAEFIK_DASHBOARD_PORT }}
+        run: |
+          ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
+            mkdir -p /home/garcesduran/proyectos/proyectek-base && \
+            cd /home/garcesduran/proyectos/proyectek-base && \
+            git init && \
+            git remote remove origin || true && \
+            git remote add origin https://github.com/erick09-eng/AutoSync.git && \
+            git fetch origin main && \
+            git reset --hard origin/main' && \
+          echo "$ENV_CONTENT" | ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cat > /home/garcesduran/proyectos/proyectek-base/.env' && \
+          ssh -p 2221 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST '\
+            cd /home/garcesduran/proyectos/proyectek-base && \
+            docker compose down || true && \
+            docker compose up -d --build && \
+            docker system prune -f'

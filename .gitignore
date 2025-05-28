@@ -49,10 +49,11 @@ coverage.xml
 
 # Archivos específicos de FastAPI / Uvicorn
 *.pid
+MySQL/data/*
+
+# Sock no es manejable por git
+MySQL/data/mysql.sock
 
 
-
-
-
-
-
+Makefile
+FASTAPI/pylint_scores.csv
