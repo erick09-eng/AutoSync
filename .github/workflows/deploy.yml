@@ -62,8 +62,8 @@ jobs:
             else
               echo "Repository already exists, updating..."
             fi
-            
-            cd ${PROJECT_PATH}
+
+            cd /Users/ndgserver/AutoSync
             echo "Changed to: $(pwd)"
             
             git checkout main
