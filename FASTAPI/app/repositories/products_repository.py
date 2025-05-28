@@ -6,8 +6,11 @@ It includes functions to create, read, update, and delete products.
 """
 from datetime import datetime, timezone, timedelta
 
+from models.category import Category
 from models.product import Product
-from schemas.product_schema import ProductCreate as ProductsCreate
+from schemas.product_schema import(ProductCreate,
+                                   ProductResponse,
+                                   ProductUpdate)
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -16,10 +19,10 @@ def get_colombia_time():
     colombia_tz = timezone(timedelta(hours=-5))
     return datetime.now(colombia_tz)
 
-def create_product(db: Session, product: ProductsCreate):
+def create_product(db: Session, product: ProductCreate):
     """Create a new product in the database."""
     # validate the category_id exists in the database
-    category = db.query(Product).filter(Product.category_id == product.category_id).first()
+    category = db.query(Category).filter(Category.category_id == product.category_id).first()
     if not category:
         raise HTTPException(
             status_code=404,
@@ -64,7 +67,7 @@ def get_all_products(db: Session):
     """
     return db.query(Product).all()
 
-def update_product(db: Session, product_id: int, product: ProductsCreate):
+def update_product(db: Session, product_id: int, product: ProductUpdate):
     """Update a product by its ID."""
     db_product = get_product(db, product_id)
     if not db_product:

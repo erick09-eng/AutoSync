@@ -51,7 +51,7 @@ class ProductResponse(ProductBase):
         Model for product data response.
     """
     product_id: int
-    create_at: datetime
+    created_at: datetime
     updated_at: datetime
     # Note: created_at and updated_at are not included here as they are managed by the backend
 
