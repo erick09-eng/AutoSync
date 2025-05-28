@@ -60,4 +60,3 @@ def update_existing_payment(db: Session, payment_id: int, payment: PaymentCreate
         return updated_payment
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error updating payment: {str(e)}") from e
-

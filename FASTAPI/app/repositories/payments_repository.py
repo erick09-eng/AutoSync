@@ -44,4 +44,3 @@ def update_payment(
         db.commit()
         db.refresh(db_payment)
     return db_payment
-
