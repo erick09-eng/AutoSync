@@ -9,7 +9,6 @@ from datetime import datetime, timezone, timedelta
 from models.category import Category
 from models.product import Product
 from schemas.product_schema import(ProductCreate,
-                                   ProductResponse,
                                    ProductUpdate)
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
