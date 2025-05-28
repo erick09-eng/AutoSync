@@ -10,22 +10,17 @@ from sqlalchemy.orm import Session
 
 def create_payment(db: Session, payment: PaymentCreate):
     """Create a new payment record in the database."""
-    db_payment = db.query(Payments).filter(
-        Payments.payment_id == payment.payment_id).first()
-    if db_payment:
-        return None
-    # Check if the payment_id already exists
-    db_payment = db.query(Payments).filter(
-        Payments.payment_id == payment.payment_id).first()
-    if db_payment:
-        return None
-    # If not, create a new payment record
-    # Convert the PaymentCreate schema to a Payments model instance
-    db_payment = Payments(**payment.dict())
-    db.add(db_payment)
-    db.commit()
-    db.refresh(db_payment)
-    return db_payment
+    try:
+        # Convert the PaymentCreate schema to a Payments model instance
+        db_payment = Payments(
+            **payment.dict())
+        db.add(db_payment)
+        db.commit()
+        db.refresh(db_payment)
+        return db_payment
+    except Exception as e:
+        db.rollback()
+        raise e from e
 
 def get_payment(db: Session, payment_id: int):
     """Get a payment record by its ID."""
