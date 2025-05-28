@@ -8,6 +8,7 @@ Classes:
 """
 # pylint: disable=too-few-public-methods
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
 
 class PaymentBase(BaseModel):
@@ -16,7 +17,7 @@ class PaymentBase(BaseModel):
     payment_method_id : int
     amount : float
     transaction_code : str
-    payment_date : datetime
+    payment_date: Optional[datetime] = None
     status : str
 
 class PaymentCreate(PaymentBase):
@@ -24,7 +25,7 @@ class PaymentCreate(PaymentBase):
 
 class PaymentResponse(PaymentBase):
     """Schema for response of payment"""
-    payment_id : int
+    payment_id: int
 
     class Config:
         """ ORM mode to convert SQLAlchemy models to Pydantic models """

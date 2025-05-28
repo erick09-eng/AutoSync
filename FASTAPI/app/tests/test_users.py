@@ -1,12 +1,16 @@
-from venv import create
+#app/tests/test_users.py
+"""User API tests module.
+This module contains tests for the user API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db  # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db  # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -52,12 +56,14 @@ def client(test_db):
 
 # Test to create a new user
 def test_create_user(client):
+    """Test to create a new user."""
     response = client.post("/api/v1/users/", json={
         "username": "johndoe",
         "password_hash": "hashed_password123",
         "full_name": "John Doe",
         "email": "john@example.com",
-        "role_id": 1
+        "role_id": 1,
+        "is_active": True
     })
     assert response.status_code == 200
     data = response.json()
@@ -66,16 +72,21 @@ def test_create_user(client):
     assert data["full_name"] == "John Doe"
     assert data["email"] == "john@example.com"
     assert data["role_id"] == 1
+    assert data["is_active"] is True
+    assert "created_at" in data
+    assert "updated_at" in data
     assert "user_id" in data
 
 # Test to get a user by its ID
 def test_get_user_by_id(client):
+    """Test to get a user by its ID."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
         "password_hash": "hashed_password123",
         "full_name": "John Doe",
         "email": "john@example.com",
-        "role_id": 1
+        "role_id": 1,
+        "is_active": True
     })
     created_user = create_response.json()
     response = client.get(f"/api/v1/users/{created_user['user_id']}")
@@ -85,14 +96,15 @@ def test_get_user_by_id(client):
 
 # Test to get all users
 def test_get_all_users(client):
+    """Test to get all users."""
     client.post("/api/v1/users/", json={
         "username": "johndoe",
         "password_hash": "hashed_password123",
         "full_name": "John Doe",
         "email": "john@example.com",
-        "role_id": 1
+        "role_id": 1,
+        "is_active": True
     })
-
     response = client.get("/api/v1/users/")
     assert response.status_code == 200
     data = response.json()
@@ -100,12 +112,14 @@ def test_get_all_users(client):
 
 # Test to update an existing user
 def test_update_user(client):
+    """Test to update an existing user."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
         "password_hash": "hashed_password123",
         "full_name": "John Doe",
         "email": "john@example.com",
-        "role_id": 1
+        "role_id": 1,
+        "is_active": True
     })
     created_user = create_response.json()
 
@@ -116,9 +130,9 @@ def test_update_user(client):
         "password_hash": "hashed_password123_updated",
         "full_name": "John Doe Updated",
         "email": "john@updated.com",
-        "role_id": 2
+        "role_id": 2,
+        "is_active": True
     })
-
     assert response.status_code == 200
     data = response.json()
     assert data["username"] == "johndoe_updated"
@@ -126,21 +140,22 @@ def test_update_user(client):
     assert data["full_name"] == "John Doe Updated"
     assert data["email"] == "john@updated.com"
     assert data["role_id"] == 2
+    assert data["is_active"] is True
 
 # Test to delete a user
 def test_delete_user(client):
+    """Test to delete a user."""
     create_response = client.post("/api/v1/users/", json={
         "username": "johndoe",
         "password_hash": "hashed_password123",
         "full_name": "John Doe",
         "email": "john@example.com",
-        "role_id": 1
+        "role_id": 1,
+        "is_active": True
     })
     created_user = create_response.json()
-
     response = client.delete(f"/api/v1/users/{created_user['user_id']}")
     assert response.status_code == 200
-
     get_response = client.get(f"/api/v1/users/{created_user['user_id']}")
     assert get_response.status_code == 404
     assert get_response.json()["detail"] == "User not found"

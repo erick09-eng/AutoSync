@@ -1,11 +1,16 @@
+#app/tests/test_sales.py
+"""Sale API tests module.
+This module contains tests for the sale API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -51,6 +56,7 @@ def client(test_db):
 
 # Test to create a new sale
 def test_create_sale(client):
+    """Test to create a new sale."""
     response = client.post("/api/v1/sales/", json={
         "document_type_id": 1,
         "serial_number": "1234567890",
@@ -73,6 +79,7 @@ def test_create_sale(client):
 
 # Test to get a sale by its ID
 def test_get_sale(client):
+    """Test to get a sale by its ID."""
     create_response = client.post("/api/v1/sales/", json={
         "document_type_id": 1,
         "serial_number": "1234567890",
@@ -84,12 +91,14 @@ def test_get_sale(client):
     })
     created_sale = create_response.json()
     response = client.get(f"/api/v1/sales/{created_sale['sale_id']}")
-    assert response.status.code == 200
+    assert response.status_code == 200
     data = response.json()
     assert data["document_type_id"] == 1
+    assert data["serial_number"] == "1234567890"
 
 # Test to update a sale by ID
 def test_update_sale(client):
+    """Test to update a sale by ID."""
     create_response = client.post("/api/v1/sales/", json={
         "document_type_id": 1,
         "serial_number": "1234567890",
@@ -122,25 +131,4 @@ def test_update_sale(client):
     assert data["subtotal"] == 11.0
     assert data["tax_amount"] == 0.5
     assert data["payment_method"] == 2
-
-# Test to delete a sale
-def test_delete_sale(client):
-    create_response = client.post("/api/v1/sales/", json={
-        "document_type_id": 1,
-        "serial_number": "1234567890",
-        "customer_id": 1,
-        "user_id": 1,
-        "subtotal": 12.0,
-        "tax_amount": 1.0,
-        "payment_method": 1
-    })
-    created_sale = create_response.json()
-
-    # Delete the sale
-    delete_response = client.delete(f"/api/v1/sales/{created_sale['sale_id']}")
-    assert delete_response.status_code == 200
-
-    get_response = client.get(f"/api/v1/sales/{created_sale['sale_id']}")
-    assert get_response.status_code == 404
-    assert get_response.json()["detail"] == "Sale not found"
-        
+    

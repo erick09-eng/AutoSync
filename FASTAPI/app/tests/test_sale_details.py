@@ -1,13 +1,16 @@
-import json
-from re import sub
+#app/tests/test_sale_details.py
+"""Sale Details API tests module.
+This module contains tests for the sale details API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -53,6 +56,7 @@ def client(test_db):
 
 # Test to create a new sale detail
 def test_create_sale_detail(client):
+    """Test to create a new sale detail."""
     response = client.post("/api/v1/sales_details/", json={
         "sale_id": 1,
         "product_id": 1,
@@ -73,7 +77,8 @@ def test_create_sale_detail(client):
 
 # Test to get a sale detail by ID
 def test_get_sale_detail(client):
-    create_response = client.get("/api/v1/sales_details/", json={
+    """Test to get a sale detail by ID."""
+    create_response = client.post("/api/v1/sales_details/", json={
         "sale_id": 1,
         "product_id": 1,
         "quantity": 1,

@@ -1,11 +1,16 @@
+#app/tests/test_categories.py
+"""Category API tests module.
+This module contains tests for the category API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -51,6 +56,9 @@ def client(test_db):
 
 #Test to create a new category
 def test_create_category(client):
+    """
+    Test to create a new category
+    """
     response = client.post("/api/v1/categories/", json={
         "name": "Test Category", 
         "description": "Test Description", 
@@ -65,6 +73,9 @@ def test_create_category(client):
 
 # Test to get a category by its ID
 def test_get_category(client):
+    """
+    Test to get a category by its ID
+    """
     create_response = client.post("/api/v1/categories/", json={
         "name": "Test Category",
         "description": "Test Description",
@@ -78,12 +89,14 @@ def test_get_category(client):
 
 # Test to get all categories
 def test_get_all_categories(client):
+    """
+    Test to get all categories
+    """
     create_response = client.post("/api/v1/categories/", json={
         "name": "Test Category",
         "description": "Test Description",
         "parent_category_id": None
-    })
-    
+    })   
     response = client.get("/api/v1/categories/")
     assert response.status_code == 200
     data = response.json()
@@ -91,20 +104,21 @@ def test_get_all_categories(client):
 
 #Test to update an existing category
 def test_update_category(client):
+    """
+    Test to update an existing category
+    """
     create_response = client.post("/api/v1/categories/", json={
         "name": "Test Category",
         "description": "Test Description",
         "parent_category_id": None
     })
-    created_category = create_response.json()
-    
+    created_category = create_response.json()    
     update_response = client.put(
         f"/api/v1/categories/{created_category['category_id']}", 
         json={"name": "Updated Category",
         "description": "Updated Description",
         "parent_category_id": None
     })
-
     assert update_response.status_code == 200
     data = update_response.json()
     assert data["name"] == "Updated Category"
@@ -113,6 +127,9 @@ def test_update_category(client):
 
 #Test to delete a category
 def test_delete_category(client):
+    """
+    Test to delete a category
+    """
     create_response = client.post("/api/v1/categories/", json={
         "name": "Test Category",
         "description": "Test Description",
@@ -126,3 +143,4 @@ def test_delete_category(client):
     get_response = client.get(f"/api/v1/categories/{created_category['category_id']}")
     assert get_response.status_code == 404
     assert get_response.json()["detail"] == "Category not found"
+    

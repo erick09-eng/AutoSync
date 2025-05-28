@@ -1,11 +1,16 @@
+#app/tests/test_roles.py
+"""Role API tests module.
+This module contains tests for the role API endpoints.
+It uses pytest and fastapi.testclient to test the API.
+"""
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
 from sqlalchemy.orm import sessionmaker  # Para manejar sesiones de base de datos
 from sqlalchemy.pool import StaticPool  # Para configurar el pool de conexiones
-from app.main import app  # Importamos nuestra aplicación FastAPI
-from app.db.database import Base
-from app.db.session import get_db # Importamos la base y función para obtener la DB
+from main import app  # Importamos nuestra aplicación FastAPI
+from db.database import Base
+from db.session import get_db # Importamos la base y función para obtener la DB
 
 # Configuración de la base de datos de prueba
 SQLALCHEMY_DATABASE_URL = (
@@ -51,6 +56,7 @@ def client(test_db):
 
 # Test to create a new role
 def test_create_role(client):
+    """Test to create a new role."""
     response = client.post("/api/v1/roles/", json={
         "role_name": "Test Role",
         "role_description": "Test Description"
@@ -63,6 +69,7 @@ def test_create_role(client):
 
 # Test to get a role by its ID
 def test_get_role(client):
+    """Test to get a role by its ID."""
     create_response = client.post("/api/v1/roles/", json={
         "role_name": "Test Role",
         "role_description": "Test Description"
@@ -75,6 +82,7 @@ def test_get_role(client):
 
 # Test to get a list of all roles 
 def test_get_roles(client):
+    """Test to get a list of all roles."""
     client.post("/api/v1/roles/", json={
         "role_name": "Test Role",
         "role_description": "Test Description"
@@ -86,12 +94,12 @@ def test_get_roles(client):
 
 # Test to update a role
 def test_update_role(client):
+    """Test to update a role."""
     create_response = client.post("/api/v1/roles/", json={
         "role_name": "Test Role",
         "role_description": "Test Description"
     })
     created_role = create_response.json()
-
     response = client.put(
         f"/api/v1/roles/{created_role['role_id']}", 
         json={"role_name": "Updated Role",
@@ -104,15 +112,14 @@ def test_update_role(client):
 
 # Test to delete a role
 def test_delete_role(client):
+    """Test to delete a role."""
     create_response = client.post("/api/v1/roles/", json={
         "role_name": "Test Role",
         "role_description": "Test Description"
     })
     created_role = create_response.json()
-
     response = client.delete(f"/api/v1/roles/{created_role['role_id']}")
     assert response.status_code == 200
-
     get_response = client.get(f"/api/v1/roles/{created_role['role_id']}")
     assert get_response.status_code == 404
     assert get_response.json()["detail"] == "Role not found"
