@@ -1,4 +1,4 @@
-name: Deploy FastAPI aplication
+name: Deploy FastApi aplication
 
 on:
   push:
@@ -41,10 +41,10 @@ jobs:
           ssh-keyscan -H ${HOST_NAME} >> ~/.ssh/known_hosts
 
           # Use -T flag to disable pseudo-terminal allocation
-          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cat > ${PROJECT_PATH}.env' && \
-          ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${USER_NAME}@${HOST_NAME} <<EOF
+          echo "$ENV_CONTENT" | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cat > ${PROJECT_PATH}/.env' 
+          ssh -T -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key ${USER_NAME}@${HOST_NAME} <<'EOF'
             if [ ! -d "${PROJECT_PATH}/.git" ]; then
-              mkdir -p \$(dirname ${PROJECT_PATH})
+              mkdir -p $(dirname ${PROJECT_PATH})
               git clone ${GIT_REPO} ${PROJECT_PATH}
             fi
 
@@ -54,4 +54,3 @@ jobs:
             git reset --hard origin/main
             git pull origin main
           EOF
-          
