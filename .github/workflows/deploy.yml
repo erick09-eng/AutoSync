@@ -56,7 +56,7 @@ jobs:
             echo "PROJECT_PATH: ${PROJECT_PATH}"
             echo "GIT_REPO: ${GIT_REPO}"
             
-            if [ ! -d "${PROJECT_PATH}/.git" ]; then
+            if [ ! -d "/Users/ndgserver/AutoSync/.git" ]; then
               echo "Cloning repository..."
               git clone https://github.com/erick09-eng/AutoSync.git /Users/ndgserver/AutoSync
             else
