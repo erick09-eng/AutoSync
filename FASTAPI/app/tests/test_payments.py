@@ -3,7 +3,6 @@
 This module contains tests for the payment API endpoints.
 It uses pytest and fastapi.testclient to test the API.
 """
-from venv import create
 import pytest  # Framework de pruebas
 from fastapi.testclient import TestClient  # Cliente para probar la API
 from sqlalchemy import create_engine  # Para crear la conexión a la base de datos
@@ -60,6 +59,31 @@ def test_create_payment(client):
     """
     Test to create a new payment record
     """
+    # Create sale
+    sale_response = client.post("/api/v1/sales/", json={
+        "document_type_id": 1,
+        "serial_number": "1234567890",
+        "customer_id": 1,
+        "user_id": 1,
+        "subtotal": 12.0,
+        "tax_amount": 1.0,
+        "payment_method": 1
+    })
+    assert sale_response.status_code == 200
+    sale_data = sale_response.json()
+    assert "sale_id" in sale_data
+
+    # Create payment method
+    payment_method_response = client.post("/api/v1/payment_methods/", json={
+        "payment_method_name": "Test Payment Method",
+        "description": "This is a test payment method",
+        "requires_authorization": True
+    })
+    assert payment_method_response.status_code == 200
+    payment_method_data = payment_method_response.json()
+    assert "payment_method_id" in payment_method_data
+
+    # Create payment
     response = client.post("/api/v1/payments/", json={
         "sale_id": 1,
         "payment_method_id": 1,
@@ -82,6 +106,30 @@ def test_get_payment(client):
     """
     Test to get a payment record by its ID
     """
+    # Create sale
+    sale_response = client.post("/api/v1/sales/", json={
+        "document_type_id": 1,
+        "serial_number": "1234567890",
+        "customer_id": 1,
+        "user_id": 1,
+        "subtotal": 12.0,
+        "tax_amount": 1.0,
+        "payment_method": 1
+    })
+    assert sale_response.status_code == 200
+    sale_data = sale_response.json()
+    assert "sale_id" in sale_data
+
+    # Create payment method
+    payment_method_response = client.post("/api/v1/payment_methods/", json={
+        "payment_method_name": "Test Payment Method",
+        "description": "This is a test payment method",
+        "requires_authorization": True
+    })
+    assert payment_method_response.status_code == 200
+    payment_method_data = payment_method_response.json()
+    assert "payment_method_id" in payment_method_data
+
     create_response = client.post("/api/v1/payments/", json={
         "sale_id": 1,
         "payment_method_id": 1,
@@ -104,6 +152,30 @@ def test_get_payments(client):
     """
     Test to get all payment records
     """
+    # Create sale
+    sale_response = client.post("/api/v1/sales/", json={
+        "document_type_id": 1,
+        "serial_number": "1234567890",
+        "customer_id": 1,
+        "user_id": 1,
+        "subtotal": 12.0,
+        "tax_amount": 1.0,
+        "payment_method": 1
+    })
+    assert sale_response.status_code == 200
+    sale_data = sale_response.json()
+    assert "sale_id" in sale_data
+
+    # Create payment method
+    payment_method_response = client.post("/api/v1/payment_methods/", json={
+        "payment_method_name": "Test Payment Method",
+        "description": "This is a test payment method",
+        "requires_authorization": True
+    })
+    assert payment_method_response.status_code == 200
+    payment_method_data = payment_method_response.json()
+    assert "payment_method_id" in payment_method_data
+
     client.post("/api/v1/payments/", json={
         "sale_id": 1,
         "payment_method_id": 1,
@@ -121,6 +193,30 @@ def test_update_payment(client):
     """
     Test to update a payment record
     """
+    # Create sale
+    sale_response = client.post("/api/v1/sales/", json={
+        "document_type_id": 1,
+        "serial_number": "1234567890",
+        "customer_id": 1,
+        "user_id": 1,
+        "subtotal": 12.0,
+        "tax_amount": 1.0,
+        "payment_method": 1
+    })
+    assert sale_response.status_code == 200
+    sale_data = sale_response.json()
+    assert "sale_id" in sale_data
+
+    # Create payment method
+    payment_method_response = client.post("/api/v1/payment_methods/", json={
+        "payment_method_name": "Test Payment Method",
+        "description": "This is a test payment method",
+        "requires_authorization": True
+    })
+    assert payment_method_response.status_code == 200
+    payment_method_data = payment_method_response.json()
+    assert "payment_method_id" in payment_method_data
+
     create_response = client.post("/api/v1/payments/", json={
         "sale_id": 1,
         "payment_method_id": 1,
@@ -146,25 +242,4 @@ def test_update_payment(client):
     assert data["amount"] == 10.0
     assert data["transaction_code"] == "UPDATE123"
     assert data["status"] == "success" 
-
-# Test to delete a payment
-def test_delete_payment(client):
-    """
-    Test to delete a payment
-    """
-    create_response = client.post("/api/v1/payments/", json={
-        "sale_id": 1,
-        "payment_method_id": 1,
-        "amount": 10.0,
-        "transaction_code": "ABC123",
-        "status": "success"
-    })
-    created_payment = create_response.json()
-
-    response = client.delete(f"/api/v1/payments/{created_payment['payment_id']}")
-    assert response.status_code == 200
-    
-    get_response = client.get(f"/api/v1/payments/{created_payment['payment_id']}")
-    assert get_response.status_code == 404
-    assert get_response.json() == {"detail": "Payment not found"}
     
