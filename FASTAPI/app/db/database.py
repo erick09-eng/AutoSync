@@ -13,12 +13,12 @@ from sqlalchemy.orm import sessionmaker
 # Removed dotenv loading from here, assuming it is loaded in main.py
 
 # Configurar conexión con MySQL
-MYSQL_USER = os.getenv("MYSQL_USER", "")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "")
-MYSQL_HOST = os.getenv("MYSQL_HOST", "")
-MYSQL_DB = os.getenv("MYSQL_DB", "")
+DB_USER = os.getenv("DB_USER", "")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+DB_HOST = os.getenv("DB_HOST", "")
+DB_NAME = os.getenv("DB_NAME", "")
 
-DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DB}"
+DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 print(f"Connecting to database at {DATABASE_URL}")
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
