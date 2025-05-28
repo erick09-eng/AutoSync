@@ -57,6 +57,16 @@ def client(test_db):
 # Test to create a new product
 def test_create_product(client):
     """Test to create a new product."""
+    # Create category
+    category_response = client.post("/api/v1/categories/", json={
+        "name": "Test Category",
+        "description": "This is a test category",
+        "parent_category_id": None
+    })
+    assert category_response.status_code == 200
+    category_data = category_response.json()
+    assert "category_id" in category_data
+
     response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -90,6 +100,16 @@ def test_create_product(client):
 # Test to get a product
 def test_get_product(client):
     """Test to get a product."""
+    # Create category
+    category_response = client.post("/api/v1/categories/", json={
+        "name": "Test Category",
+        "description": "This is a test category",
+        "parent_category_id": None
+    })
+    assert category_response.status_code == 200
+    category_data = category_response.json()
+    assert "category_id" in category_data
+
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -105,7 +125,7 @@ def test_get_product(client):
     })
     created_product = create_response.json()
     response = client.get(f"/api/v1/products/{created_product['product_id']}")
-    assert response.status.code == 200
+    assert response.status_code == 200
     data = response.json()
     assert data["sku"] == "SKU123"
     assert data["name"] == "Test Product"
@@ -113,6 +133,16 @@ def test_get_product(client):
 # Test to get all products
 def test_get_all_products(client):
     """Test to get all products."""
+    # Create category
+    category_response = client.post("/api/v1/categories/", json={
+        "name": "Test Category",
+        "description": "This is a test category",
+        "parent_category_id": None
+    })
+    assert category_response.status_code == 200
+    category_data = category_response.json()
+    assert "category_id" in category_data
+
     client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -134,6 +164,16 @@ def test_get_all_products(client):
 # Test to update an existing product
 def test_update_product(client):
     """Test to update an existing product."""
+    # Create category
+    category_response = client.post("/api/v1/categories/", json={
+        "name": "Test Category",
+        "description": "This is a test category",
+        "parent_category_id": None
+    })
+    assert category_response.status_code == 200
+    category_data = category_response.json()
+    assert "category_id" in category_data
+
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",
@@ -179,6 +219,16 @@ def test_update_product(client):
 # Test to delete a product
 def test_delete_product(client):
     """Test to delete a product."""
+    # Create category
+    category_response = client.post("/api/v1/categories/", json={
+        "name": "Test Category",
+        "description": "This is a test category",
+        "parent_category_id": None
+    })
+    assert category_response.status_code == 200
+    category_data = category_response.json()
+    assert "category_id" in category_data
+
     create_response = client.post("/api/v1/products/", json={
         "sku": "SKU123",
         "name": "Test Product",

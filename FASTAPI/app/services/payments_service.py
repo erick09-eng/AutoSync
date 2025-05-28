@@ -11,7 +11,6 @@ from repositories.payments_repository import (
     get_payment,
     get_all_payments,
     update_payment,
-    delete_payment,
 )
 from schemas.payments import PaymentCreate
 from sqlalchemy.orm import Session
