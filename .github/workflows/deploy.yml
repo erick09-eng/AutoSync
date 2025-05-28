@@ -58,7 +58,7 @@ jobs:
             
             if [ ! -d "${PROJECT_PATH}/.git" ]; then
               echo "Cloning repository..."
-              git clone ${GIT_REPO} ${PROJECT_PATH}
+              git clone https://github.com/erick09-eng/AutoSync.git /Users/ndgserver/AutoSync
             else
               echo "Repository already exists, updating..."
             fi
